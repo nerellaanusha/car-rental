@@ -1,0 +1,52 @@
+
+
+
+<mat-card class="example-card" style="margin: auto;width: 45%;margin-top: 10%;">
+  <mat-card-header class="reservation-header" style="margin-left: auto;margin-right: auto;">
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title style="text-align:center">
+      START YOUR RESERVATION</mat-card-title>
+
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <p>
+        <mat-form-field class="example-full-width">
+      <input matInput placeholder="Pick-up Location" value="Lee Summit" formControlName="username">
+      </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="example-full-width">
+      <input matInput placeholder="Drop-off Location" value="Lee Summit" formControlName="password">
+      </mat-form-field>
+      </p>
+
+        <div style="display:flex">
+        <mat-form-field style="width:45%;margin-right:10%">
+        <input matInput [matDatepicker]="picker1" placeholder="Pick-up Date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field style="width:45%">
+        <input matInput [matDatepicker]="picker2" placeholder="Drop-off Date">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+
+
+      <p *ngIf="error" class="error">
+        {{ error }}
+      </p>
+
+      <div class="button">
+        <button type="submit" mat-button class="login-button" (click)="showCars()">Find your car</button>
+      </div>
+
+    </form>
+  </mat-card-content>
+
+</mat-card>

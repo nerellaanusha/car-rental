@@ -1,0 +1,39 @@
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+.mat-card-image{
+  width:70% !important;
+  height:160px;
+}
+
+.mat-card-actions{
+  display:inline-flex !important;
+}
+
+.mat-expansion-panel-header:not([aria-disabled=true]){
+  height:35px !important;
+  width:200px;
+}
+
+.book{
+  margin-right: 10px !important;
+  background-color:#5751ad!important;
+}
+
+.book .mat-button-wrapper{
+  color:white;
+}
+
+
+.mat-expansion-panel-header-title{
+  color:#5751ad!important
+}
+
+.mat-expansion-indicator::after{
+  color:#5751ad
+}

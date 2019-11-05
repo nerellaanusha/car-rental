@@ -1,0 +1,16 @@
+
+.login-button{
+  margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+    background-color:#5751ad!important;
+}
+
+.login-button .mat-button-wrapper{
+  color:white !important;
+}
+
+.reservation-header .mat-card-header-text{
+  margin-left: auto;
+  margin-right: auto;
+}

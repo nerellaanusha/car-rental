@@ -1,18 +1,22 @@
+import {  OnInit } from '@angular/core';
 import { Input, Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {ViewEncapsulation} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
-  title = 'rental';
+export class HomeComponent implements OnInit {
 
-  constructor(){
+  constructor(private router: Router) {
+    console.log('home');
+    }
 
+  ngOnInit() {
   }
 
   form: FormGroup = new FormGroup({
@@ -28,6 +32,10 @@ export class AppComponent {
   @Input() error: string | null;
 
   @Output() submitEM = new EventEmitter();
+
+  showCars = () =>{
+    this.router.navigateByUrl('/cars');
+  }
 
 
 }

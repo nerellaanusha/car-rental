@@ -1,0 +1,285 @@
+<div style="display:flex">
+
+<div class="col1" style="width:15%">
+  <mat-card class="example-card">
+  <mat-card-header style="border-bottom: 1px solid #5751ad">
+    <mat-card-title>FILTERS</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <mat-list style="display:grid">
+ <mat-list-item> <mat-checkbox>SUVS</mat-checkbox> </mat-list-item>
+ <mat-list-item> <mat-checkbox>SEDANS</mat-checkbox> </mat-list-item>
+</mat-list>
+  </mat-card-content>
+</mat-card>
+
+</div>
+
+<div class="col2" style="float:right;width:85%">
+<mat-grid-list cols="3" rowHeight="1:1" [gutterSize]="'5px'">
+  <mat-grid-tile>
+    <mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Toyota Camry</mat-card-title>
+    <mat-card-subtitle>Economy Car</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="assets/images/camry.png" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+
+    <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon> <span>5 Person</span>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon> <span>2 Baggage</span>
+  </mat-card-content>
+  <mat-card-actions>
+    <div>
+    <button mat-button class="book">BOOK</button>
+  </div>
+
+    <div>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Find Near-By Locations
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list style="display:grid;height:40px;overflow:auto">
+   <mat-list-item> NWA Airport - $60.50 </mat-list-item>
+   <mat-list-item> Rogers - 55.00 </mat-list-item>
+   <mat-list-item> Springdale - 50.00</mat-list-item>
+  </mat-list>
+      </mat-expansion-panel>
+      </mat-accordion>
+
+    </div>
+
+
+
+  </mat-card-actions>
+</mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Nissan Maxima</mat-card-title>
+    <mat-card-subtitle>Economy Car</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="assets/images/nissan.png" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon> 5 Person
+    <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon> 2 Baggage
+  </mat-card-content>
+  <mat-card-actions>
+    <div>
+    <button mat-button class="book">BOOK</button>
+  </div>
+
+<div>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Find Near-By Locations
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list style="display:grid;height:40px;overflow:auto">
+   <mat-list-item> NWA Airport - $60.50 </mat-list-item>
+   <mat-list-item> Rogers - 55.00 </mat-list-item>
+   <mat-list-item> Springdale - 50.00</mat-list-item>
+  </mat-list>
+      </mat-expansion-panel>
+      </mat-accordion>
+  </div>
+
+  </mat-card-actions>
+</mat-card>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile>
+    <mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Masareti</mat-card-title>
+    <mat-card-subtitle>Luxury Car</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="assets/images/masareti.png" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon> 2 Person
+    <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon> 1 Baggage
+  </mat-card-content>
+  <mat-card-actions>
+    <div>
+    <button mat-button class="book">BOOK</button>
+  </div>
+
+  <div>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Find Near-By Locations
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list style="display:grid;height:40px;overflow:auto">
+   <mat-list-item> NWA Airport - $60.50 </mat-list-item>
+   <mat-list-item> Rogers - 55.00 </mat-list-item>
+   <mat-list-item> Springdale - 50.00</mat-list-item>
+  </mat-list>
+      </mat-expansion-panel>
+      </mat-accordion>
+
+  </div>
+  </mat-card-actions>
+</mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>RangeRover</mat-card-title>
+    <mat-card-subtitle>Luxury Car</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="assets/images/rangerover.png" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon> 5 Person
+    <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon> 2 Baggage
+  </mat-card-content>
+  <mat-card-actions>
+    <div>
+    <button mat-button class="book" style="margin-right:10px">BOOK</button>
+  </div>
+
+    <div>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Find Near-By Locations
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list style="display:grid;height:40px;overflow:auto">
+   <mat-list-item> NWA Airport - $60.50 </mat-list-item>
+   <mat-list-item> Rogers - 55.00 </mat-list-item>
+   <mat-list-item> Springdale - 50.00</mat-list-item>
+  </mat-list>
+      </mat-expansion-panel>
+      </mat-accordion>
+
+    </div>
+  </mat-card-actions>
+</mat-card>
+  </mat-grid-tile>
+
+
+
+
+
+
+
+<mat-grid-tile>
+  <mat-card class="example-card">
+<mat-card-header>
+  <div mat-card-avatar class="example-header-image"></div>
+  <mat-card-title>Acura</mat-card-title>
+  <mat-card-subtitle>Luxury Car</mat-card-subtitle>
+</mat-card-header>
+<img mat-card-image src="assets/images/acura.png" alt="Photo of a Shiba Inu">
+<mat-card-content>
+  <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon> 7 Person
+  <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon> 2 Baggage
+</mat-card-content>
+<mat-card-actions>
+  <div>
+  <button mat-button class="book" style="margin-right:10px">BOOK</button>
+</div>
+
+  <div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Find Near-By Locations
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-list style="display:grid;height:40px;overflow:auto">
+ <mat-list-item> NWA Airport - $60.50 </mat-list-item>
+ <mat-list-item> Rogers - 55.00 </mat-list-item>
+ <mat-list-item> Springdale - 50.00</mat-list-item>
+</mat-list>
+    </mat-expansion-panel>
+    </mat-accordion>
+
+  </div>
+</mat-card-actions>
+</mat-card>
+</mat-grid-tile>
+
+
+
+
+
+
+
+
+<mat-grid-tile>
+  <mat-card class="example-card">
+<mat-card-header>
+  <div mat-card-avatar class="example-header-image"></div>
+  <mat-card-title>Jeep</mat-card-title>
+  <mat-card-subtitle>Luxury Car</mat-card-subtitle>
+</mat-card-header>
+<img mat-card-image src="assets/images/jeep.png" alt="Photo of a Shiba Inu">
+<mat-card-content>
+  <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon> 5 Person
+  <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon> 2 Baggage
+</mat-card-content>
+<mat-card-actions>
+  <div>
+  <button mat-button class="book" style="margin-right:10px">BOOK</button>
+</div>
+
+  <div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Find Near-By Locations
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-list style="display:grid;height:40px;overflow:auto">
+ <mat-list-item> NWA Airport - $60.50 </mat-list-item>
+ <mat-list-item> Rogers - 55.00 </mat-list-item>
+ <mat-list-item> Springdale - 50.00</mat-list-item>
+</mat-list>
+    </mat-expansion-panel>
+    </mat-accordion>
+
+  </div>
+</mat-card-actions>
+</mat-card>
+</mat-grid-tile>
+
+
+
+</mat-grid-list>
+
+
+</div>
+
+
+</div>
+
+
+<!-- Copyright 2019 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

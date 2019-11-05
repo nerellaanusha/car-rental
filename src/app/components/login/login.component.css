@@ -1,0 +1,15 @@
+
+.login-header{
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.login-button{
+  margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+    background-color:#5751ad!important;
+}
+
+.login-button .mat-button-wrapper{
+  color:white;
+}

@@ -1,18 +1,21 @@
+import { OnInit } from '@angular/core';
+import {ViewEncapsulation} from '@angular/core';
 import { Input, Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import {ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
-  title = 'rental';
+export class LoginComponent implements OnInit {
 
-  constructor(){
+  constructor() {
+    console.log('login');
+  }
 
+  ngOnInit() {
   }
 
   form: FormGroup = new FormGroup({

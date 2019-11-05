@@ -1,0 +1,32 @@
+<mat-card class="example-card" style="margin: auto;width: 25%;margin-top: 10%;">
+  <mat-card-header class="login-header">
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title style="text-align:center">Login</mat-card-title>
+
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Username" formControlName="username">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+      </p>
+
+      <p *ngIf="error" class="error">
+        {{ error }}
+      </p>
+
+      <div class="login-button">
+        <button type="submit" mat-button class="login-button">Login</button>
+      </div>
+
+    </form>
+  </mat-card-content>
+
+</mat-card>
