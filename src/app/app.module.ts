@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -9,14 +9,16 @@ import {
   MatInputModule,
   MatButtonModule,
  MatCheckboxModule,
- MatIconModule,
  MatToolbarModule,
  MatNativeDateModule,
  MatFormFieldModule
 } from '@angular/material';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSelectModule} from '@angular/material/select';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RouterModule } from '@angular/router';
+import {MatDividerModule} from '@angular/material/divider';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -24,18 +26,36 @@ import { LoginComponent } from './components/login/login.component';
 import { CarsComponent} from './components/cars/cars.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
+import { AdminComponent } from './components/admin/admin.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { HttpClientModule } from '@angular/common/http';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { EditcarComponent } from './components/editcar/editcar.component';
+
 
 const appRoutes: Routes = [
-  { path: 'home',
+  {
+    path: 'home',
     component: HomeComponent
   },
-  {path:'login',
-  component:LoginComponent
+  {
+    path:'login',
+    component:LoginComponent
   },
   {
-  path:'cars',
-  component:CarsComponent
-  }
+    path:'cars',
+    component:CarsComponent
+  },
+  {
+    path:'admin',
+    component:AdminComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
+  },
 ];
 
 @NgModule({
@@ -43,16 +63,27 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    CarsComponent
+    CarsComponent,
+    AdminComponent,
+    SignupComponent,
+    EditcarComponent
   ],
+  entryComponents: [EditcarComponent],
   imports: [
+    FormsModule,
+    MatTableModule,
+    MatDividerModule,
+    MatSelectModule,
+    MatExpansionModule,
+    MatSnackBarModule,
     MatDatepickerModule,
+    MatPaginatorModule,
+    MatTabsModule,
     MatCardModule,
     MatIconModule,
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatExpansionModule,
     MatNativeDateModule,
     MatCheckboxModule,
     MatIconModule,
@@ -62,6 +93,7 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [MatDatepickerModule],

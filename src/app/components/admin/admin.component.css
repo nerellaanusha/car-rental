@@ -1,0 +1,34 @@
+
+
+.admin-spacing{
+  line-height: 30px;
+  text-decoration: underline;
+}
+
+.add-car-button{
+  background-color: #5751ad!important;
+  color:white
+}
+
+
+table {
+  width: 100%;
+}
+
+tr.mat-header-row {
+  background-color: #5751ad;
+}
+
+th.mat-header-cell{
+  color:white;
+}
+
+.mat-paginator{
+  border-bottom: 1px solid gray;
+}
+
+
+.mat-card{
+  box-shadow: 0 5px 5px -3px rgba(0,0,0,0.2), 0 8px 10px 1px rgba(0,0,0,0.14),
+  0 3px 14px 2px rgba(0,0,0,0.12) !important;
+}

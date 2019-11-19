@@ -1,0 +1,250 @@
+
+<!-- <div style="display:flex">
+
+<div style="width:15%">
+  <mat-card class="example-card">
+  <mat-card-header style="border-bottom: 1px solid #5751ad">
+    <mat-card-title>OPTIONS</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <mat-list style="display:grid">
+  <mat-list-item class="admin-spacing"> VIEW / EDIT CARS </mat-list-item>
+  <mat-list-item class="admin-spacing"> ADD CAR </mat-list-item>
+  <mat-list-item class="admin-spacing"> VIEW / EDIT QUOTE </mat-list-item>
+  </mat-list>
+  </mat-card-content>
+  </mat-card>
+
+</div>
+
+
+  <div style="float:right;width:85%">
+    <mat-card class="example-card" style="margin: auto;width: 25%;margin-top: 10%;">
+      <mat-card-header class="login-header">
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title style="text-align:center">New Car</mat-card-title>
+
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <p>
+            <mat-form-field>
+              <input type="text" matInput placeholder="Car Make" formControlName="carMake">
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field>
+              <input type="text" matInput placeholder="Car Model" formControlName="carModel">
+            </mat-form-field>
+          </p>
+
+          <p *ngIf="error" class="error">
+            {{ error }}
+          </p>
+
+          <div class="login-button">
+            <button type="submit" mat-button class="login-button">Add New Car</button>
+          </div>
+
+        </form>
+      </mat-card-content>
+
+    </mat-card>
+
+
+  </div>
+
+
+</div> -->
+
+
+
+
+<mat-tab-group>
+  <mat-tab label="VIEW / EDIT CARS ">
+
+
+<div style="margin: auto;width: 50%;margin-top: 10%;">
+    <!-- <mat-accordion style="margin: auto;width: 25%;margin-top: 10%;">
+<mat-expansion-panel (opened)="panelOpenState = true"
+                     (closed)="panelOpenState = false">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Self aware panel
+    </mat-panel-title>
+    <mat-panel-description>
+      Currently I am {{panelOpenState ? 'open' : 'closed'}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <p>I'm visible because I am open</p>
+</mat-expansion-panel>
+</mat-accordion> -->
+
+<!-- <mat-card>
+
+  <mat-list>
+  <mat-list-item>Item 1</mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>Item 2</mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>Item 3</mat-list-item>
+</mat-list>
+</mat-card> -->
+
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="VIN">
+      <th mat-header-cell *matHeaderCellDef> VIN </th>
+      <td mat-cell *matCellDef="let car"> {{car.vin}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CarMake">
+      <th mat-header-cell *matHeaderCellDef> CarMake </th>
+      <td mat-cell *matCellDef="let car"> {{car.carMake}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CarModel">
+      <th mat-header-cell *matHeaderCellDef> CarModel </th>
+      <td mat-cell *matCellDef="let car"> {{car.carModel}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Edit">
+      <th mat-header-cell *matHeaderCellDef> Edit </th>
+      <td mat-cell *matCellDef="let car">
+        <button mat-raised-button (click)="openEditCar(car)">Edit Car</button>
+      </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Delete">
+      <th mat-header-cell *matHeaderCellDef> Delete </th>
+      <td mat-cell *matCellDef="let car">
+        <button mat-raised-button (click)="deleteCar(car)">Delete Car</button>
+      </td>
+
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+
+</div>
+
+
+
+  </mat-tab>
+
+
+
+
+
+  <mat-tab label="ADD CAR">
+
+
+    <mat-card class="example-card" style="margin: auto;width: 25%;margin-top: 10%;">
+      <mat-card-header class="login-header">
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title style="text-align:center">New Car</mat-card-title>
+
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="addNewCar()">
+
+            <mat-form-field>
+              <!-- <input type="text" matInput placeholder="Car Make" formControlName="carMake"> -->
+
+              <mat-select placeholder="Select Make" formControlName="carMake">
+                  <mat-option *ngFor="let item of ['nissan','honda']" [value]="item">
+                      {{item}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-form-field>
+              <input type="text" matInput placeholder="Car Model" formControlName="carModel">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input type="text" matInput placeholder="VIN" formControlName="vin">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select placeholder="Select Baggage" formControlName="baggage">
+                  <mat-option *ngFor="let item of [1,2,3,4,5,6,7]" [value]="item">
+                      {{item}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select placeholder="Select Capacity" formControlName="capacity">
+                  <mat-option *ngFor="let item of [1,2,3,4,5,6,7,9,10,11,12,13,14,15]" [value]="item">
+                      {{item}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input type="text" matInput placeholder="Image" formControlName="image">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input type="text" matInput placeholder="zipcode" formControlName="zipcode">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input type="text" matInput placeholder="price" formControlName="price">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select placeholder="Select Type" formControlName="type">
+                  <mat-option *ngFor="let type of ['SUV','SEDAN','TRUCK']" [value]="type">
+                      {{type}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+          <p *ngIf="error" class="error">
+            {{ error }}
+          </p>
+
+          <div class="login-button">
+            <button type="submit" mat-button class="add-car-button">Add New Car</button>
+          </div>
+
+        </form>
+      </mat-card-content>
+
+    </mat-card>
+
+
+
+
+  </mat-tab>
+
+
+
+
+  <mat-tab label="VIEW / EDIT QUOTE"> Content 3 </mat-tab>
+
+
+
+
+  <mat-tab label="VIEW/ADD COUPONS"> Content 4 </mat-tab>
+</mat-tab-group>

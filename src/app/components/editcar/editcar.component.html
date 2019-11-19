@@ -1,0 +1,35 @@
+<form [formGroup]="form" (ngSubmit)="updateCar()">
+
+    <mat-form-field>
+      <!-- <input type="text" matInput placeholder="Car Make" formControlName="carMake"> -->
+
+      <input type="text" matInput placeholder="Car Make" formControlName="carMake" disabled>
+    </mat-form-field>
+
+
+
+    <mat-form-field>
+      <input type="text" matInput placeholder="Car Model" formControlName="carModel" disabled>
+    </mat-form-field>
+
+
+
+    <mat-form-field>
+      <input type="text" matInput placeholder="zipcode" formControlName="zipcode" disabled>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput placeholder="price" formControlName="price">
+    </mat-form-field>
+
+
+
+  <p *ngIf="error" class="error">
+    {{ error }}
+  </p>
+
+  <div class="login-button">
+    <button type="submit" mat-button class="add-car-button">Update Car</button>
+  </div>
+
+</form>
