@@ -17,19 +17,21 @@
 </div>
 
 <div class="col2" style="float:right;width:85%">
+
+
 <mat-grid-list cols="3" rowHeight="1:1" [gutterSize]="'5px'">
-  <mat-grid-tile>
+  <mat-grid-tile *ngFor="let car of cars">
     <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Toyota Camry</mat-card-title>
+    <mat-card-title>{{car.carMake}} {{car.carModel}}</mat-card-title>
     <mat-card-subtitle>Economy Car</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image src="assets/images/camry.png" alt="Photo of a Shiba Inu">
   <mat-card-content>
 
-    <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon> <span>5 Person</span>
-    <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon> <span>2 Baggage</span>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon> <span>{{car.capacity}} Person</span>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon> <span>{{car.baggage}} Baggage</span>
   </mat-card-content>
   <mat-card-actions>
     <div>
@@ -60,7 +62,11 @@
   </mat-card-actions>
 </mat-card>
   </mat-grid-tile>
-  <mat-grid-tile>
+
+
+
+
+  <!-- <mat-grid-tile>
     <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
@@ -267,7 +273,7 @@
   </div>
 </mat-card-actions>
 </mat-card>
-</mat-grid-tile>
+</mat-grid-tile> -->
 
 
 

@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-    this.restService.postData('signin',this.form.value).subscribe((resp) =>{
+    this.restService.postData('api/signin',this.form.value).subscribe((resp) =>{
       console.log(resp);
 
     });

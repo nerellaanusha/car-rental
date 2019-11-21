@@ -33,6 +33,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { EditcarComponent } from './components/editcar/editcar.component';
+import { AddCouponComponent } from './components/add-coupon/add-coupon.component';
+import { AddLocComponent } from './components/add-loc/add-loc.component';
 
 
 const appRoutes: Routes = [
@@ -66,9 +68,11 @@ const appRoutes: Routes = [
     CarsComponent,
     AdminComponent,
     SignupComponent,
-    EditcarComponent
+    EditcarComponent,
+    AddCouponComponent,
+    AddLocComponent
   ],
-  entryComponents: [EditcarComponent],
+  entryComponents: [EditcarComponent,AddCouponComponent,AddLocComponent],
   imports: [
     FormsModule,
     MatTableModule,

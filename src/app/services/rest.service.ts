@@ -24,4 +24,8 @@ export class RestService {
       return this.http.get(this.endpoint+url,{ observe: 'response' });
    };
 
+   deleteData(url){
+    return this.http.delete(this.endpoint+url,{ observe: 'response' });
+   }
+
 }

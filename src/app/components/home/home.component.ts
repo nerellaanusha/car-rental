@@ -3,6 +3,8 @@ import { Input, Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
+import { SharedService} from '../../services/shared.service';
+import { RestService } from '../../services/rest.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +14,8 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private router: Router,private sharedService:SharedService,
+  private restService:RestService) {
     console.log('home');
     }
 
@@ -20,8 +23,10 @@ export class HomeComponent implements OnInit {
   }
 
   form: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+    pickUpLoc: new FormControl(''),
+    dropOffLoc: new FormControl(''),
+    pickUpDate: new FormControl(''),
+    dropOffDate: new FormControl('')
   });
 
   submit() {
@@ -34,6 +39,7 @@ export class HomeComponent implements OnInit {
   @Output() submitEM = new EventEmitter();
 
   showCars = () =>{
+    this.sharedService.setRequest(this.form.value);
     this.router.navigateByUrl('/cars');
   }
 

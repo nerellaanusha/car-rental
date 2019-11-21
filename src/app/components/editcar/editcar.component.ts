@@ -35,7 +35,7 @@ constructor(
         req.vin = this.data.vin;
         req.price = this.form.value.price;
         req.zipcode = this.form.value.zipcode;
-      this.restService.postData('home/editCar',req).subscribe((resp) =>{
+      this.restService.postData('admin/editCar',req).subscribe((resp) =>{
 
       if(resp.status === 200){
         this.data.price = req.price;

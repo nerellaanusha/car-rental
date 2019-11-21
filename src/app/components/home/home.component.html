@@ -12,25 +12,25 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
       <p>
         <mat-form-field class="example-full-width">
-      <input matInput placeholder="Pick-up Location" value="Lee Summit" formControlName="username">
+      <input matInput placeholder="Pick-up Location" value="Lee Summit" formControlName="pickUpLoc">
       </mat-form-field>
       </p>
 
       <p>
         <mat-form-field class="example-full-width">
-      <input matInput placeholder="Drop-off Location" value="Lee Summit" formControlName="password">
+      <input matInput placeholder="Drop-off Location" value="Lee Summit" formControlName="dropOffLoc">
       </mat-form-field>
       </p>
 
         <div style="display:flex">
         <mat-form-field style="width:45%;margin-right:10%">
-        <input matInput [matDatepicker]="picker1" placeholder="Pick-up Date">
+        <input matInput [matDatepicker]="picker1" placeholder="Pick-up Date" formControlName="pickUpDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field style="width:45%">
-        <input matInput [matDatepicker]="picker2" placeholder="Drop-off Date">
+        <input matInput [matDatepicker]="picker2" placeholder="Drop-off Date" formControlName="dropOffDate">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>

@@ -1,97 +1,11 @@
 
-<!-- <div style="display:flex">
-
-<div style="width:15%">
-  <mat-card class="example-card">
-  <mat-card-header style="border-bottom: 1px solid #5751ad">
-    <mat-card-title>OPTIONS</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-
-    <mat-list style="display:grid">
-  <mat-list-item class="admin-spacing"> VIEW / EDIT CARS </mat-list-item>
-  <mat-list-item class="admin-spacing"> ADD CAR </mat-list-item>
-  <mat-list-item class="admin-spacing"> VIEW / EDIT QUOTE </mat-list-item>
-  </mat-list>
-  </mat-card-content>
-  </mat-card>
-
-</div>
-
-
-  <div style="float:right;width:85%">
-    <mat-card class="example-card" style="margin: auto;width: 25%;margin-top: 10%;">
-      <mat-card-header class="login-header">
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title style="text-align:center">New Car</mat-card-title>
-
-      </mat-card-header>
-      <mat-card-content>
-        <form [formGroup]="form" (ngSubmit)="submit()">
-          <p>
-            <mat-form-field>
-              <input type="text" matInput placeholder="Car Make" formControlName="carMake">
-            </mat-form-field>
-          </p>
-
-          <p>
-            <mat-form-field>
-              <input type="text" matInput placeholder="Car Model" formControlName="carModel">
-            </mat-form-field>
-          </p>
-
-          <p *ngIf="error" class="error">
-            {{ error }}
-          </p>
-
-          <div class="login-button">
-            <button type="submit" mat-button class="login-button">Add New Car</button>
-          </div>
-
-        </form>
-      </mat-card-content>
-
-    </mat-card>
-
-
-  </div>
-
-
-</div> -->
 
 
 
-
-<mat-tab-group>
+<mat-tab-group (selectedTabChange)="tabChanged($event)">
   <mat-tab label="VIEW / EDIT CARS ">
 
-
 <div style="margin: auto;width: 50%;margin-top: 10%;">
-    <!-- <mat-accordion style="margin: auto;width: 25%;margin-top: 10%;">
-<mat-expansion-panel (opened)="panelOpenState = true"
-                     (closed)="panelOpenState = false">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      Self aware panel
-    </mat-panel-title>
-    <mat-panel-description>
-      Currently I am {{panelOpenState ? 'open' : 'closed'}}
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-  <p>I'm visible because I am open</p>
-</mat-expansion-panel>
-</mat-accordion> -->
-
-<!-- <mat-card>
-
-  <mat-list>
-  <mat-list-item>Item 1</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item>Item 2</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item>Item 3</mat-list-item>
-</mat-list>
-</mat-card> -->
 
 
 <div class="mat-elevation-z8">
@@ -120,7 +34,10 @@
     <ng-container matColumnDef="Edit">
       <th mat-header-cell *matHeaderCellDef> Edit </th>
       <td mat-cell *matCellDef="let car">
-        <button mat-raised-button (click)="openEditCar(car)">Edit Car</button>
+        <button mat-raised-button color="primary" (click)="openEditCar(car)">
+          Edit Car
+          <mat-icon>edit</mat-icon>
+        </button>
       </td>
     </ng-container>
 
@@ -128,7 +45,10 @@
     <ng-container matColumnDef="Delete">
       <th mat-header-cell *matHeaderCellDef> Delete </th>
       <td mat-cell *matCellDef="let car">
-        <button mat-raised-button (click)="deleteCar(car)">Delete Car</button>
+        <button mat-raised-button color="warn" (click)="deleteCar(car)">
+          Delete Car
+        <mat-icon>delete</mat-icon>
+      </button>
       </td>
 
     </ng-container>
@@ -151,7 +71,7 @@
 
 
 
-  <mat-tab label="ADD CAR">
+  <mat-tab label="ADD CAR" (selectedTabChange)="tabChanged($event)">
 
 
     <mat-card class="example-card" style="margin: auto;width: 25%;margin-top: 10%;">
@@ -233,18 +153,149 @@
 
     </mat-card>
 
-
-
-
   </mat-tab>
 
 
 
 
-  <mat-tab label="VIEW / EDIT QUOTE"> Content 3 </mat-tab>
+  <mat-tab label="VIEW / EDIT QUOTE" (selectedTabChange)="tabChanged($event)"> Content 3 </mat-tab>
 
 
 
 
-  <mat-tab label="VIEW/ADD COUPONS"> Content 4 </mat-tab>
+  <mat-tab label="VIEW/ADD COUPONS" (selectedTabChange)="tabChanged($event)">
+
+
+
+<div style="margin: auto;width: 50%;margin-top: 10%;">
+
+  <!-- <button mat-icon-button aria-label="Example icon-button with a heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button> -->
+
+  <button mat-button color="primary" style="border: 1px solid" (click)="addCoupon()">
+    Add Coupon
+    <mat-icon>add</mat-icon>
+  </button>
+    <table mat-table [dataSource]="couponDS">
+
+      <!-- Position Column -->
+
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="CouponCode">
+        <th mat-header-cell *matHeaderCellDef> CouponCode </th>
+        <td mat-cell *matCellDef="let coupon"> {{coupon.couponCode}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="DiscountPercentage">
+        <th mat-header-cell *matHeaderCellDef> DiscountPercentage </th>
+        <td mat-cell *matCellDef="let coupon"> {{coupon.dicountPercentage}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="DollarDiscount">
+        <th mat-header-cell *matHeaderCellDef> DollarDiscount </th>
+        <td mat-cell *matCellDef="let coupon"> {{coupon.dollarDiscount}} </td>
+      </ng-container>
+
+
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="Edit">
+        <th mat-header-cell *matHeaderCellDef> Edit </th>
+        <td mat-cell *matCellDef="let coupon">
+          <button mat-raised-button color="primary" (click)="(coupon)">Edit Coupon
+          <mat-icon>edit</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Delete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let coupon">
+          <button mat-raised-button color="warn" (click)="deleteCoupon(coupon)">Delete Coupon
+
+          <mat-icon>delete</mat-icon>
+        </button>
+        </td>
+
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="couponColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: couponColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+  </div>
+
+ </mat-tab>
+
+
+ <mat-tab label="VIEW/ADD LOCATION" (selectedTabChange)="tabChanged($event)">
+
+
+   <div style="margin: auto;width: 50%;margin-top: 10%;">
+
+     <!-- <button mat-icon-button aria-label="Example icon-button with a heart icon">
+       <mat-icon>favorite</mat-icon>
+     </button> -->
+
+     <button mat-button color="primary" style="border: 1px solid" (click)="addLocation()">
+       Add Location
+       <mat-icon>add</mat-icon>
+     </button>
+       <table mat-table [dataSource]="locationDS">
+
+         <!-- Position Column -->
+
+
+         <!-- Name Column -->
+         <ng-container matColumnDef="Zipcode">
+           <th mat-header-cell *matHeaderCellDef> Zipcode </th>
+           <td mat-cell *matCellDef="let location"> {{location.zipcode}} </td>
+         </ng-container>
+
+         <ng-container matColumnDef="LocationName">
+           <th mat-header-cell *matHeaderCellDef> LocationName </th>
+           <td mat-cell *matCellDef="let location"> {{location.locationName}} </td>
+         </ng-container>
+
+
+
+
+         <!-- Weight Column -->
+         <ng-container matColumnDef="Edit">
+           <th mat-header-cell *matHeaderCellDef> Edit </th>
+           <td mat-cell *matCellDef="let coupon">
+             <button mat-raised-button color="primary" (click)="(coupon)">Edit Location
+             <mat-icon>edit</mat-icon></button>
+           </td>
+         </ng-container>
+
+         <!-- Symbol Column -->
+         <ng-container matColumnDef="Delete">
+           <th mat-header-cell *matHeaderCellDef> Delete </th>
+           <td mat-cell *matCellDef="let coupon">
+             <button mat-raised-button color="warn" (click)="deleteCoupon(coupon)">Delete Location
+
+             <mat-icon>delete</mat-icon>
+           </button>
+           </td>
+
+         </ng-container>
+
+
+         <tr mat-header-row *matHeaderRowDef="locationColumns"></tr>
+         <tr mat-row *matRowDef="let row; columns: locationColumns;"></tr>
+       </table>
+
+       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+     </div>
+
+
+</mat-tab>
+
 </mat-tab-group>

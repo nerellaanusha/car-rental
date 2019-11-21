@@ -1,0 +1,34 @@
+<mat-card class="example-card">
+  <mat-card-header class="login-header">
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title style="text-align:center">Add Coupon</mat-card-title>
+
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="locForm" (ngSubmit)="addLocation()">
+
+        <mat-form-field>
+          <input type="text" matInput placeholder="Zipcode" formControlName="zipcode">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input type="text" matInput placeholder="locationName" formControlName="locationName">
+        </mat-form-field>
+
+
+        <!-- <mat-form-field>
+          <input type="text" matInput placeholder="Image" formControlName="image">
+        </mat-form-field> -->
+
+      <p *ngIf="error" class="error">
+        {{ error }}
+      </p>
+
+      <div class="login-button">
+        <button type="submit" mat-button class="add-car-button">Add New Location</button>
+      </div>
+
+    </form>
+  </mat-card-content>
+
+</mat-card>
