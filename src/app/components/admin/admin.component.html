@@ -268,7 +268,7 @@
          <!-- Weight Column -->
          <ng-container matColumnDef="Edit">
            <th mat-header-cell *matHeaderCellDef> Edit </th>
-           <td mat-cell *matCellDef="let coupon">
+           <td mat-cell *matCellDef="let location">
              <button mat-raised-button color="primary" (click)="(coupon)">Edit Location
              <mat-icon>edit</mat-icon></button>
            </td>
@@ -277,8 +277,8 @@
          <!-- Symbol Column -->
          <ng-container matColumnDef="Delete">
            <th mat-header-cell *matHeaderCellDef> Delete </th>
-           <td mat-cell *matCellDef="let coupon">
-             <button mat-raised-button color="warn" (click)="deleteCoupon(coupon)">Delete Location
+           <td mat-cell *matCellDef="let location">
+             <button mat-raised-button color="warn" (click)="deleteLoc(location)">Delete Location
 
              <mat-icon>delete</mat-icon>
            </button>

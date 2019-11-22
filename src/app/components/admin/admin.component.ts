@@ -22,7 +22,8 @@ export class AdminComponent implements OnInit {
   constructor(private restService: RestService,private snackbar:SnackbarService,
     private dialog: MatDialog) {
   }
-  cars: any;
+  cars: any = [];
+  locations: any = [];
   displayedColumns: string[] = ['VIN', 'CarMake','CarModel','Edit', 'Delete'];
   couponColumns: string[] = ['CouponCode', 'DiscountPercentage','DollarDiscount','Edit', 'Delete'];
   locationColumns: string[] = ['Zipcode','LocationName','Edit', 'Delete']
@@ -74,6 +75,7 @@ export class AdminComponent implements OnInit {
   loadAllLocations() {
       this.restService.getData('admin/allLocations').subscribe((resp) =>{
           if(resp.status === 200){
+            this.locations = resp.body;
             this.locationDS = new MatTableDataSource<any>(resp.body);
           }
           },
@@ -127,11 +129,11 @@ export class AdminComponent implements OnInit {
   if(resp.status === 200){
     this.snackbar.openSnackBar(resp.body.message,'Success');
 
-    var filtered = this.cars.filter(function(value, index, arr){
-    return value.vin != car.vin;
+    var filtered = this.locations.filter(function(value, index, arr){
+    return value.zipcode != car.zipcode;
     });
-    this.cars = filtered;
-    this.dataSource = new MatTableDataSource<PeriodicElement>(filtered);
+    this.locations = filtered;
+    this.locationDS = new MatTableDataSource<PeriodicElement>(filtered);
 
 
   }
@@ -172,12 +174,37 @@ export class AdminComponent implements OnInit {
 
   addLocation(){
   const dialogRef = this.dialog.open(AddLocComponent, {
-      width: '500px'
+      width: '500px',
+      data: {
+              'locations': this.locations,
+              'ds':this.locationDS
+            }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  deleteLoc(loc){
+  this.restService.deleteData('admin/deleteLoc/'+loc.zipcode).subscribe((resp) =>{
+
+  if(resp.status === 200){
+    this.snackbar.openSnackBar(resp.body.message,'Success');
+
+    var filtered = this.locations.filter(function(value, index, arr){
+    return value.zipcode != loc.zipcode;
+    });
+    this.locations = filtered;
+    this.locationDS = new MatTableDataSource<PeriodicElement>(filtered);
+  }
+
+  },
+  (error) =>{
+  this.snackbar.openSnackBar(error.error.message,'Failure');
+
+  }
+  );
   }
 
 }

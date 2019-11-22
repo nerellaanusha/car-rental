@@ -1,7 +1,9 @@
-import { Component, OnInit,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation,Inject } from '@angular/core';
 import { FormGroup, FormControl ,Validators} from '@angular/forms';
 import { RestService } from '../../services/rest.service';
 import {SnackbarService } from '../../services/snackbar.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-add-loc',
@@ -11,7 +13,9 @@ import {SnackbarService } from '../../services/snackbar.service';
 })
 export class AddLocComponent implements OnInit {
 
-  constructor(private restService: RestService,private snackbar:SnackbarService) { }
+  constructor(public dialogRef: MatDialogRef<EditcarComponent>,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData,
+  private restService: RestService,private snackbar:SnackbarService) { }
 
   locForm: FormGroup = new FormGroup({
     zipcode: new FormControl('',[Validators.required]),
@@ -25,6 +29,8 @@ export class AddLocComponent implements OnInit {
     if (this.locForm.valid) {
         this.restService.postData('admin/addLocation',this.locForm.value).subscribe((resp) =>{
         if(resp.status === 200){
+          this.data.locations.push(this.locForm.value);
+          this.data.ds =new MatTableDataSource<PeriodicElement>(this.data.locations);
           this.snackbar.openSnackBar(resp.body.message,'Success');
           this.locForm.reset();
         }
@@ -36,5 +42,7 @@ export class AddLocComponent implements OnInit {
     }
 
   }
+
+
 
 }

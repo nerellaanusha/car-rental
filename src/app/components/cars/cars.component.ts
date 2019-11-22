@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ViewEncapsulation} from '@angular/core';
 import { SharedService} from '../../services/shared.service';
 import { RestService } from '../../services/rest.service';
+import {Router,NavigationExtras} from '@angular/router';
 
 @Component({
   selector: 'app-cars',
@@ -12,7 +13,8 @@ import { RestService } from '../../services/rest.service';
 export class CarsComponent implements OnInit {
 
   cars
-  constructor(private sharedService:SharedService,private restService:RestService) {
+  constructor(private sharedService:SharedService,private restService:RestService,
+  private router: Router) {
 
     this.restService.postData('user/getCarsOnZipcode',this.sharedService.getRequest()).subscribe((resp) =>{
         if(resp.status === 200){
@@ -28,6 +30,16 @@ export class CarsComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+
+  book(car){
+  let navigationExtras: NavigationExtras = {
+            queryParams: {
+                "car": car
+            }
+        };
+  this.router.navigateByUrl('/booking',{state:{car}});
   }
 
 

@@ -1,0 +1,64 @@
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Verify Vehicle Details </ng-template>
+
+
+        <mat-card class="example-card" style="margin: 10% auto auto;width: 50%">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{car.carMake}}</mat-card-title>
+    <mat-card-subtitle>{{car.carModel}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src={{car.image}} alt="Photo of a Shiba Inu">
+  <mat-card-content>
+  </mat-card-content>
+  <mat-card-actions>
+    <div style="display:flex">
+      <h3> Pick Up Location: </h3><h5> 12/13/2019</h5>
+    </div>
+    <div style="display:flex">
+      <h3> Pick Up Date: </h3><h5> 12/13/2019</h5>
+    </div>
+    <div style="display:flex">
+      <h3> Drop off Location: </h3><h5> 12/13/2019</h5>
+    </div>
+    <div style="display:flex">
+      <h3> Drop off Date: </h3><h5> 12/13/2019</h5>
+    </div>
+
+  </mat-card-actions>
+</mat-card>
+        <!-- <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required> -->
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Fill out your information</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Confirmation</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+
+<!-- Copyright 2019 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

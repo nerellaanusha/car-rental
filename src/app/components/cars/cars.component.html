@@ -16,7 +16,7 @@
 
 </div>
 
-<div class="col2" style="float:right;width:85%">
+<div class="car-list col2" style="float:right;width:85%">
 
 
 <mat-grid-list cols="3" rowHeight="1:1" [gutterSize]="'5px'">
@@ -27,15 +27,34 @@
     <mat-card-title>{{car.carMake}} {{car.carModel}}</mat-card-title>
     <mat-card-subtitle>Economy Car</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="assets/images/camry.png" alt="Photo of a Shiba Inu">
+  <div style="width:100%;display:flex">
+  <img mat-card-image src={{car.image}} alt="Photo of a Shiba Inu" style="margin-left:0%">
+
+<div style="margin-left:5%">
+  <div>
+<mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon> <span>{{car.capacity}} People</span>
+</div>
+<div>
+<mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon> <span>{{car.baggage}} Baggage</span>
+</div>
+</div>
+  </div>
   <mat-card-content>
 
-    <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon> <span>{{car.capacity}} Person</span>
-    <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon> <span>{{car.baggage}} Baggage</span>
+    <div style="display:flex">
+    <div style="margin-right:10%">
+      <h3> Per Day </h3>
+      <span> $19 </span>
+    </div>
+    <div>
+      <h3> Total </h3>
+      <span> $100</span>
+    </div>
+  </div>
   </mat-card-content>
   <mat-card-actions>
     <div>
-    <button mat-button class="book">BOOK</button>
+    <button mat-button class="book" (click)="book(car)">BOOK</button>
   </div>
 
     <div>

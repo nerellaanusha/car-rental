@@ -12,13 +12,27 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
       <p>
         <mat-form-field class="example-full-width">
-      <input matInput placeholder="Pick-up Location" value="Lee Summit" formControlName="pickUpLoc">
+          <input type="text" placeholder="Pick up Location" aria-label="Number" matInput formControlName="pickUpLoc"
+          [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let loc of filteredOptions | async" [value]="loc">
+        {{loc.name}}
+      </mat-option>
+    </mat-autocomplete>
+
+          <!-- <input matInput placeholder="Pick-up Location" value="Lee Summit" formControlName="pickUpLoc"> -->
       </mat-form-field>
       </p>
 
       <p>
         <mat-form-field class="example-full-width">
-      <input matInput placeholder="Drop-off Location" value="Lee Summit" formControlName="dropOffLoc">
+          <input type="text" placeholder="Drop off Location" aria-label="Number" matInput formControlName="dropOffLoc"
+          [matAutocomplete]="auto1">
+    <mat-autocomplete #auto1="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let loc of filteredOptions1 | async" [value]="loc">
+        {{loc.name}}
+      </mat-option>
+    </mat-autocomplete>
       </mat-form-field>
       </p>
 

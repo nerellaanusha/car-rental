@@ -35,6 +35,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { EditcarComponent } from './components/editcar/editcar.component';
 import { AddCouponComponent } from './components/add-coupon/add-coupon.component';
 import { AddLocComponent } from './components/add-loc/add-loc.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatStepperModule} from '@angular/material/stepper';
+import { BookingComponent } from './components/booking/booking.component';
+
 
 
 const appRoutes: Routes = [
@@ -58,6 +62,10 @@ const appRoutes: Routes = [
     path: 'signup',
     component: SignupComponent
   },
+  {
+    path:'booking',
+    component:BookingComponent
+  }
 ];
 
 @NgModule({
@@ -70,10 +78,13 @@ const appRoutes: Routes = [
     SignupComponent,
     EditcarComponent,
     AddCouponComponent,
-    AddLocComponent
+    AddLocComponent,
+    BookingComponent
   ],
   entryComponents: [EditcarComponent,AddCouponComponent,AddLocComponent],
   imports: [
+    MatStepperModule,
+    MatAutocompleteModule,
     FormsModule,
     MatTableModule,
     MatDividerModule,

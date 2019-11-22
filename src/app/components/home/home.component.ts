@@ -5,6 +5,7 @@ import {ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import { SharedService} from '../../services/shared.service';
 import { RestService } from '../../services/rest.service';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -14,12 +15,11 @@ import { RestService } from '../../services/rest.service';
 })
 export class HomeComponent implements OnInit {
 
+  locations = [];
+  filteredOptions: Observable<any[]>;
   constructor(private router: Router,private sharedService:SharedService,
   private restService:RestService) {
-    console.log('home');
-    }
-
-  ngOnInit() {
+  this.loadAllLocations();
   }
 
   form: FormGroup = new FormGroup({
@@ -28,6 +28,47 @@ export class HomeComponent implements OnInit {
     pickUpDate: new FormControl(''),
     dropOffDate: new FormControl('')
   });
+
+  displayFn(loc){
+    return loc ? loc.name : undefined;
+  }
+
+  loadAllLocations() {
+      this.restService.getData('admin/allLocations').subscribe((resp) =>{
+          if(resp.status === 200){
+            resp.body.forEach(loc =>{
+
+              this.locations.push({name:loc.locationName+","+loc.zipcode});
+
+            });
+            this.filteredOptions = this.form.get('pickUpLoc')!.valueChanges.pipe(
+            startWith(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name => name ? this.filter(name) : this.locations.slice())
+            );
+
+            this.filteredOptions1 = this.form.get('dropOffLoc')!.valueChanges.pipe(
+            startWith(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name => name ? this.filter(name) : this.locations.slice())
+            );
+
+          }
+          },
+          (error) =>{
+          this.snackbar.openSnackBar(error.error.message,'Failure');
+          }
+      );
+  }
+  ngOnInit() {
+  }
+
+  private filter(name: string): User[] {
+    const filterValue = name.toLowerCase();
+
+    return this.locations.filter(loc => loc.name.toLowerCase().indexOf(filterValue) === 0);
+  }
+
 
   submit() {
     if (this.form.valid) {
@@ -39,8 +80,14 @@ export class HomeComponent implements OnInit {
   @Output() submitEM = new EventEmitter();
 
   showCars = () =>{
-    this.sharedService.setRequest(this.form.value);
+    if(this.form.valid){
+    var req = this.form.value;
+
+    req.dropOffLoc = this.form.value.dropOffLoc.name.split(",")[1];
+    req.pickUpLoc = this.form.value.pickUpLoc.name.split(",")[1];
+    this.sharedService.setRequest(req);
     this.router.navigateByUrl('/cars');
+    }
   }
 
 
