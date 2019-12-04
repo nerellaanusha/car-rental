@@ -13,8 +13,7 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class AddLocComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<EditcarComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: DialogData,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
   private restService: RestService,private snackbar:SnackbarService) { }
 
   locForm: FormGroup = new FormGroup({
@@ -27,10 +26,10 @@ export class AddLocComponent implements OnInit {
 
   addLocation () {
     if (this.locForm.valid) {
-        this.restService.postData('admin/addLocation',this.locForm.value).subscribe((resp) =>{
+        this.restService.postData('admin/addLocation',this.locForm.value).subscribe((resp: any) =>{
         if(resp.status === 200){
           this.data.locations.push(this.locForm.value);
-          this.data.ds =new MatTableDataSource<PeriodicElement>(this.data.locations);
+          this.data.ds =new MatTableDataSource<any>(this.data.locations);
           this.snackbar.openSnackBar(resp.body.message,'Success');
           this.locForm.reset();
         }

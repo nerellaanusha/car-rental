@@ -38,6 +38,8 @@ import { AddLocComponent } from './components/add-loc/add-loc.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatStepperModule} from '@angular/material/stepper';
 import { BookingComponent } from './components/booking/booking.component';
+import { CookieService } from 'ngx-cookie-service';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -83,6 +85,7 @@ const appRoutes: Routes = [
   ],
   entryComponents: [EditcarComponent,AddCouponComponent,AddLocComponent],
   imports: [
+    MatMenuModule,
     MatStepperModule,
     MatAutocompleteModule,
     FormsModule,
@@ -111,7 +114,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [MatDatepickerModule],
+  providers: [MatDatepickerModule,CookieService],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

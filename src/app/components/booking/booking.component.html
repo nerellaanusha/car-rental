@@ -1,61 +1,223 @@
 
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="firstFormGroup">
+
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Verify Vehicle Details </ng-template>
 
+        <div style="display:flex">
 
-        <mat-card class="example-card" style="margin: 10% auto auto;width: 50%">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{car.carMake}}</mat-card-title>
-    <mat-card-subtitle>{{car.carModel}}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src={{car.image}} alt="Photo of a Shiba Inu">
-  <mat-card-content>
-  </mat-card-content>
-  <mat-card-actions>
-    <div style="display:flex">
-      <h3> Pick Up Location: </h3><h5> 12/13/2019</h5>
-    </div>
-    <div style="display:flex">
-      <h3> Pick Up Date: </h3><h5> 12/13/2019</h5>
-    </div>
-    <div style="display:flex">
-      <h3> Drop off Location: </h3><h5> 12/13/2019</h5>
-    </div>
-    <div style="display:flex">
-      <h3> Drop off Date: </h3><h5> 12/13/2019</h5>
+          <mat-card class="example-card" style="margin: 10% auto auto;width: 50%;background-color: #f3f3f3;margin-right:5%">
+        <div>
+            <h3> Rental Details</h3>
+            <mat-list>
+              <mat-divider></mat-divider>
+            </mat-list>
+        </div>
+
+
+
+          <div>
+            <h4> Dates & Times </h4>
+          <mat-list>
+            <mat-list-item class="tranform">Pick Up Date:  {{pickUpDate}}</mat-list-item>
+          </mat-list>
+          <div style="margin-top:1%">
+          <mat-list>
+            <mat-list-item class="tranform">Drop off Date:  {{dropOffDate}}</mat-list-item>
+            <mat-divider></mat-divider>
+          </mat-list>
+        </div>
+        </div>
+
+        <div>
+          <h4> Pick Up & Return Location</h4>
+        <mat-list>
+          <mat-list-item class="tranform">Pick Up Location:  {{pickLoc}}</mat-list-item>
+        </mat-list>
+
+        <div style="margin-top:1%">
+          <mat-list>
+            <mat-list-item class="tranform">Drop off Location: {{dropLoc}}</mat-list-item>
+          </mat-list>
+
+        </div>
+      </div>
+
+          <!-- </mat-card-actions> -->
+          </mat-card>
+
+
+        <mat-card class="example-card" style="margin: 10% auto auto;width: 50%;background-color: #f3f3f3">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{car.carMake}}</mat-card-title>
+            <mat-card-subtitle>{{car.carModel}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src={{car.image}} alt="Photo of a Shiba Inu">
+
+          <div>
+            <span style="font-weight:600"> Vehicle Details</span>
+            <mat-divider></mat-divider>
+        </div>
+
+        <div>
+        <mat-list>
+          <mat-list-item>No of Days ({{noOfDays}}) @ ${{car.price}}/day : ${{car.totalPrice}}</mat-list-item>
+        </mat-list>
+      </div>
+
+      <br>
+      <div>
+        <span style="font-weight:600"> Extras</span>
+        <mat-divider></mat-divider>
     </div>
 
-  </mat-card-actions>
-</mat-card>
+    <div>
+    <mat-list>
+      <mat-list-item>Sales Tax {{car.tax}}%: ${{noOfDays * car.price * (car.tax/100) | number}}</mat-list-item>
+    </mat-list>
+  </div>
+
+
+
+      <div>
+        <h4> Estimated Total : ${{car.totalPriceWithTax}}</h4>
+
+      </div>
+
+        </mat-card>
+
+
+
+
+
+
+</div>
         <!-- <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required> -->
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperNext style="background-color: #5751ad;color: white;">Next</button>
       </div>
     </form>
   </mat-step>
+
+
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
       <ng-template matStepLabel>Fill out your information</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="secondCtrl" required>
-      </mat-form-field>
+
+
+      <div style="display:flex">
+
+        <mat-card class="example-card" style="margin: 10% auto auto;width: 50%;background-color: #f3f3f3;margin-right:5%">
+
+          <form [formGroup]="form" (ngSubmit)="addNewCar()">
+
+
+
+              <mat-form-field>
+                <input type="text" matInput placeholder="First Name" formControlName="firstName">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input type="text" matInput placeholder="Last Name" formControlName="lastName">
+              </mat-form-field>
+
+
+              <mat-form-field>
+                <input type="text" matInput placeholder="Email" formControlName="email">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input type="text" matInput placeholder="Contact Number" formControlName="contact">
+              </mat-form-field>
+
+
+
+
+            <p *ngIf="error" class="error">
+              {{ error }}
+            </p>
+
+
+
+          </form>
+
+        </mat-card>
+
+
+      <mat-card class="example-card" style="margin: 10% auto auto;width: 50%;background-color: #f3f3f3">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{car.carMake}}</mat-card-title>
+          <mat-card-subtitle>{{car.carModel}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src={{car.image}} alt="Photo of a Shiba Inu">
+
+        <div>
+          <span style="font-weight:600"> Vehicle Details</span>
+          <mat-divider></mat-divider>
+      </div>
+
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+      <mat-list>
+        <mat-list-item>No of Days ({{noOfDays}}) @ ${{car.price}}/day : ${{car.totalPrice}}</mat-list-item>
+      </mat-list>
+    </div>
+
+    <br>
+    <div>
+      <span style="font-weight:600"> Extras</span>
+      <mat-divider></mat-divider>
+  </div>
+
+  <div>
+  <mat-list>
+    <mat-list-item>Sales Tax {{car.tax}}%: ${{noOfDays * car.price * (car.tax/100) | number}}</mat-list-item>
+  </mat-list>
+</div>
+
+<mat-form-field>
+  <input type="text" matInput placeholder="Enter CouponCode" formControlName="coupon" style="width:75%">
+  <button mat-button (click)="checkCoupon()" style="background-color: #5751ad;color: white;">Apply</button>
+</mat-form-field>
+
+    <div>
+      <h4> Estimated Total : ${{car.totalPriceWithTax}}</h4>
+    </div>
+
+      </mat-card>
+
+</div>
+      <!-- <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required> -->
+
+
+
+
+
+      <!-- <mat-form-field>
+        <input matInput placeholder="Address" formControlName="secondCtrl" required>
+      </mat-form-field> -->
+      <div>
+        <button mat-button matStepperPrevious style="background-color: #5751ad;color: white;">Back</button>
+        <button mat-button style="background-color: #5751ad;color: white;" (click)="reserveCar()">Reserve Your Car</button>
       </div>
     </form>
   </mat-step>
+
+
   <mat-step>
     <ng-template matStepLabel>Confirmation</ng-template>
-    You are now done.
+    <img style="height: 200px; margin-left: 45%;" src="../../assets/images/confirm.svg" alt="Confirmation Page">
+    <div style="margin-left:43%">Your Booking is Confirmed</div>
+    <div style="margin-left:43%">Want to Reserve Another Car</div>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>
+
+
 </mat-horizontal-stepper>
 
 

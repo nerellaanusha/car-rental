@@ -44,11 +44,21 @@
     <div style="display:flex">
     <div style="margin-right:10%">
       <h3> Per Day </h3>
-      <span> $19 </span>
+      <span> ${{car.price}} </span>
     </div>
     <div>
       <h3> Total </h3>
-      <span> $100</span>
+      <span> ${{car.totalPrice}}</span>
+    </div>
+
+    <div>
+      <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon>
+      <span>{{car.capacity}} People</span>
+    </div>
+
+    <div>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon>
+    <span>{{car.baggage}} Baggage</span>
     </div>
   </div>
   </mat-card-content>

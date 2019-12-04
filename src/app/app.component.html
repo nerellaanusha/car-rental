@@ -52,15 +52,27 @@
     <mat-toolbar color="primary" style="background:#5751ad">
       <mat-toolbar-row>
 
+
         <h1>CAR RENTAL</h1>
         <span class="menu-spacer"></span>
           <a mat-button routerLink="home"> HOME</a>
-          <a mat-button routerLink="login"> Log-In/Sign-up</a>
+          <a mat-button routerLink="login"> SIGN IN</a>
+          <a mat-button routerLink="signup"> REGISTER</a>
 
+
+        <button mat-button [matMenuTriggerFor]="menu" style="margin-left:70em">{{this.userInfo.firstName.toUpperCase()}}</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="signout()">Sign Out</button>
+        </mat-menu>
 
       </mat-toolbar-row>
 
+
+
+
     </mat-toolbar>
+
+
 
 
 

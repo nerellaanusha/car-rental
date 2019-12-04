@@ -1,6 +1,9 @@
-import { Input, Component, Output, EventEmitter } from '@angular/core';
+import { Input, Component, Output, EventEmitter,OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {ViewEncapsulation} from '@angular/core';
+import { SharedService} from './services/shared.service';
+import { CookieService } from 'ngx-cookie-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +11,25 @@ import {ViewEncapsulation} from '@angular/core';
   styleUrls: ['./app.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'rental';
 
-  constructor(){
+  userInfo = {};
 
+  constructor(private router: Router,private sharedService:SharedService,
+    private cookieService: CookieService){
+  }
+
+  ngOnInit() {
+    this.sharedService.currentMessage.subscribe((userInfo) => {
+      if(typeof userInfo === 'object'){
+        this.userInfo = userInfo;
+      }
+      }
+    );
+    if(this.cookieService.get('firstName') !== null){
+      this.userInfo.firstName = this.cookieService.get('firstName');
+    }
   }
 
   form: FormGroup = new FormGroup({
@@ -24,6 +41,14 @@ export class AppComponent {
     if (this.form.valid) {
       this.submitEM.emit(this.form.value);
     }
+  }
+
+  signout(){
+      this.cookieService.delete('token');
+      this.cookieService.delete('id');
+      this.cookieService.delete('role');
+      this.cookieService.delete('firstName');
+      this.router.navigateByUrl('/login');
   }
   @Input() error: string | null;
 

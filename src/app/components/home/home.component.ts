@@ -6,6 +6,8 @@ import {Router} from '@angular/router';
 import { SharedService} from '../../services/shared.service';
 import { RestService } from '../../services/rest.service';
 import {map, startWith} from 'rxjs/operators';
+import {SnackbarService } from '../../services/snackbar.service';
+import {Observable,of, from } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -17,9 +19,12 @@ export class HomeComponent implements OnInit {
 
   locations = [];
   filteredOptions: Observable<any[]>;
+  filteredOptions1: Observable<any[]>;
+
+
   constructor(private router: Router,private sharedService:SharedService,
-  private restService:RestService) {
-  this.loadAllLocations();
+    private restService:RestService,private snackbar:SnackbarService) {
+    this.loadAllLocations();
   }
 
   form: FormGroup = new FormGroup({
@@ -34,8 +39,9 @@ export class HomeComponent implements OnInit {
   }
 
   loadAllLocations() {
-      this.restService.getData('admin/allLocations').subscribe((resp) =>{
+      this.restService.getData('admin/allLocations').subscribe((resp: any) =>{
           if(resp.status === 200){
+
             resp.body.forEach(loc =>{
 
               this.locations.push({name:loc.locationName+","+loc.zipcode});
@@ -63,7 +69,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  private filter(name: string): User[] {
+  private filter(name: string) {
     const filterValue = name.toLowerCase();
 
     return this.locations.filter(loc => loc.name.toLowerCase().indexOf(filterValue) === 0);
@@ -82,9 +88,6 @@ export class HomeComponent implements OnInit {
   showCars = () =>{
     if(this.form.valid){
     var req = this.form.value;
-
-    req.dropOffLoc = this.form.value.dropOffLoc.name.split(",")[1];
-    req.pickUpLoc = this.form.value.pickUpLoc.name.split(",")[1];
     this.sharedService.setRequest(req);
     this.router.navigateByUrl('/cars');
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit ,ViewChild} from '@angular/core';
+import { Component, OnInit ,ViewChild,ViewChildren,QueryList} from '@angular/core';
 import {ViewEncapsulation} from '@angular/core';
 import { FormGroup, FormControl ,Validators} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
@@ -27,15 +27,15 @@ export class AdminComponent implements OnInit {
   displayedColumns: string[] = ['VIN', 'CarMake','CarModel','Edit', 'Delete'];
   couponColumns: string[] = ['CouponCode', 'DiscountPercentage','DollarDiscount','Edit', 'Delete'];
   locationColumns: string[] = ['Zipcode','LocationName','Edit', 'Delete']
-  dataSource = new MatTableDataSource<PeriodicElement>();
-  couponDS = new MatTableDataSource<PeriodicElement>();
-  locationDS = new MatTableDataSource<PeriodicElement>();
+  dataSource = new MatTableDataSource<any>();
+  couponDS = new MatTableDataSource<any>();
+  locationDS = new MatTableDataSource<any>();
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  //@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
 
   ngOnInit() {
     this.loadAllCars();
-    this.dataSource.paginator = this.paginator;
   }
 
 
@@ -48,10 +48,11 @@ export class AdminComponent implements OnInit {
   }
 
   loadAllCars() {
-      this.restService.getData('admin/allCars').subscribe((resp) =>{
+      this.restService.getData('admin/allCars').subscribe((resp: any) =>{
           if(resp.status === 200){
            this.cars = resp.body;
-            this.dataSource = new MatTableDataSource<any>(resp.body);
+            this.dataSource = new MatTableDataSource<Object>(resp.body);
+            this.dataSource.paginator = this.paginator.toArray()[0];;
           }
           },
           (error) =>{
@@ -61,9 +62,10 @@ export class AdminComponent implements OnInit {
   }
 
   loadAllCoupons() {
-      this.restService.getData('admin/allCoupons').subscribe((resp) =>{
+      this.restService.getData('admin/allCoupons').subscribe((resp: any) =>{
           if(resp.status === 200){
-            this.couponDS = new MatTableDataSource<any>(resp.body);
+            this.couponDS = new MatTableDataSource<Object>(resp.body);
+            this.couponDS.paginator = this.paginator.toArray()[1];
           }
           },
           (error) =>{
@@ -73,10 +75,11 @@ export class AdminComponent implements OnInit {
   }
 
   loadAllLocations() {
-      this.restService.getData('admin/allLocations').subscribe((resp) =>{
+      this.restService.getData('admin/allLocations').subscribe((resp: any) =>{
           if(resp.status === 200){
             this.locations = resp.body;
-            this.locationDS = new MatTableDataSource<any>(resp.body);
+            this.locationDS = new MatTableDataSource<Object>(resp.body);
+            this.locationDS.paginator = this.paginator.toArray()[2];
           }
           },
           (error) =>{
@@ -108,7 +111,7 @@ export class AdminComponent implements OnInit {
 
   addNewCar() {
     if (this.form.valid) {
-      this.restService.postData('admin/addcar',this.form.value).subscribe((resp) =>{
+      this.restService.postData('admin/addcar',this.form.value).subscribe((resp: any) =>{
       if(resp.status === 200){
         this.snackbar.openSnackBar(resp.body.message,'Success');
         this.form.reset();
@@ -124,7 +127,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteCar(car){
-  this.restService.deleteData('admin/deleteCar/'+car.vin).subscribe((resp) =>{
+  this.restService.deleteData('admin/deleteCar/'+car.vin).subscribe((resp: any) =>{
 
   if(resp.status === 200){
     this.snackbar.openSnackBar(resp.body.message,'Success');
@@ -133,7 +136,7 @@ export class AdminComponent implements OnInit {
     return value.zipcode != car.zipcode;
     });
     this.locations = filtered;
-    this.locationDS = new MatTableDataSource<PeriodicElement>(filtered);
+    this.locationDS = new MatTableDataSource<any>(filtered);
 
 
   }
@@ -155,7 +158,6 @@ export class AdminComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
     });
   }
 
@@ -187,7 +189,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteLoc(loc){
-  this.restService.deleteData('admin/deleteLoc/'+loc.zipcode).subscribe((resp) =>{
+  this.restService.deleteData('admin/deleteLoc/'+loc.zipcode).subscribe((resp: any) =>{
 
   if(resp.status === 200){
     this.snackbar.openSnackBar(resp.body.message,'Success');
@@ -196,7 +198,7 @@ export class AdminComponent implements OnInit {
     return value.zipcode != loc.zipcode;
     });
     this.locations = filtered;
-    this.locationDS = new MatTableDataSource<PeriodicElement>(filtered);
+    this.locationDS = new MatTableDataSource<any>(filtered);
   }
 
   },

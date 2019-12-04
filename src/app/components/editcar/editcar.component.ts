@@ -13,15 +13,15 @@ export class EditcarComponent implements OnInit {
 
 constructor(
   public dialogRef: MatDialogRef<EditcarComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  private restService: RestService,private snackbar:SnackbarService,) {
+  @Inject(MAT_DIALOG_DATA) public data: any,
+  private restService: RestService,private snackbar:SnackbarService) {
     console.log(data);
   }
 
   ngOnInit() {
   }
 
-    form: FormGroup = new FormGroup({
+    form: any = new FormGroup({
     carMake: new FormControl({value:this.data.carMake,disabled:true},[Validators.required]),
     carModel: new FormControl({value:this.data.carModel,disabled:true}),
     zipcode: new FormControl(this.data.zipcode),
@@ -31,11 +31,11 @@ constructor(
 
     updateCar(){
       if(this.form.status === 'VALID'){
-        let req = {};
+        let req:any = {};
         req.vin = this.data.vin;
         req.price = this.form.value.price;
         req.zipcode = this.form.value.zipcode;
-      this.restService.postData('admin/editCar',req).subscribe((resp) =>{
+      this.restService.postData('admin/editCar',req).subscribe((resp: any) =>{
 
       if(resp.status === 200){
         this.data.price = req.price;

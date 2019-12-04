@@ -3,6 +3,7 @@ import {ViewEncapsulation} from '@angular/core';
 import { SharedService} from '../../services/shared.service';
 import { RestService } from '../../services/rest.service';
 import {Router,NavigationExtras} from '@angular/router';
+import {SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-cars',
@@ -12,11 +13,16 @@ import {Router,NavigationExtras} from '@angular/router';
 })
 export class CarsComponent implements OnInit {
 
-  cars
-  constructor(private sharedService:SharedService,private restService:RestService,
-  private router: Router) {
+  cars;
 
-    this.restService.postData('user/getCarsOnZipcode',this.sharedService.getRequest()).subscribe((resp) =>{
+
+  constructor(private sharedService:SharedService,private restService:RestService,
+  private router: Router,private snackbar:SnackbarService ) {
+
+  var req = JSON.parse(JSON.stringify(this.sharedService.getRequest()));
+  req.dropOffLoc = req.dropOffLoc.name.split(",")[1];
+  req.pickUpLoc = req.pickUpLoc.name.split(",")[1];
+    this.restService.postData('user/getCarsOnZipcode',req).subscribe((resp) =>{
         if(resp.status === 200){
          this.cars = resp.body;
         }
@@ -25,7 +31,6 @@ export class CarsComponent implements OnInit {
         this.snackbar.openSnackBar(error.error.message,'Failure');
         }
     );
-    this.sharedService.setRequest({});
   }
 
   ngOnInit() {

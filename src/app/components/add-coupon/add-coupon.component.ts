@@ -24,7 +24,7 @@ export class AddCouponComponent implements OnInit {
 
   addCoupon () {
     if (this.couponForm.valid) {
-        this.restService.postData('admin/addCoupon',this.couponForm.value).subscribe((resp) =>{
+        this.restService.postData('admin/addCoupon',this.couponForm.value).subscribe((resp: any) =>{
         if(resp.status === 200){
           this.snackbar.openSnackBar(resp.body.message,'Success');
           this.couponForm.reset();

@@ -5,7 +5,8 @@
 <mat-tab-group (selectedTabChange)="tabChanged($event)">
   <mat-tab label="VIEW / EDIT CARS ">
 
-<div style="margin: auto;width: 50%;margin-top: 10%;">
+<div style="margin: auto;width: 50%;margin-top: 10%;margin-left: 18%;
+    margin-top: 5%;">
 
 
 <div class="mat-elevation-z8">
@@ -87,7 +88,7 @@
               <!-- <input type="text" matInput placeholder="Car Make" formControlName="carMake"> -->
 
               <mat-select placeholder="Select Make" formControlName="carMake">
-                  <mat-option *ngFor="let item of ['nissan','honda']" [value]="item">
+                  <mat-option *ngFor="let item of ['nissan','honda','hyundai','toyota','kia','chevrolet','ford','Range Rover']" [value]="item">
                       {{item}}
                   </mat-option>
               </mat-select>
