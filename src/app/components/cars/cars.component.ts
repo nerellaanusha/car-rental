@@ -4,6 +4,8 @@ import { SharedService} from '../../services/shared.service';
 import { RestService } from '../../services/rest.service';
 import {Router,NavigationExtras} from '@angular/router';
 import {SnackbarService } from '../../services/snackbar.service';
+import { ReqQuoteComponent} from '../req-quote/req-quote.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cars',
@@ -17,7 +19,7 @@ export class CarsComponent implements OnInit {
 
 
   constructor(private sharedService:SharedService,private restService:RestService,
-  private router: Router,private snackbar:SnackbarService ) {
+  private router: Router,private snackbar:SnackbarService ,private dialog: MatDialog) {
 
   var req = JSON.parse(JSON.stringify(this.sharedService.getRequest()));
   req.dropOffLoc = req.dropOffLoc.name.split(",")[1];
@@ -45,6 +47,20 @@ export class CarsComponent implements OnInit {
             }
         };
   this.router.navigateByUrl('/booking',{state:{car}});
+  }
+
+  reqQuote = (car) =>  {
+
+  const dialogRef = this.dialog.open(ReqQuoteComponent, {
+      width: '500px',
+      data: {
+              'car': car
+            }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 

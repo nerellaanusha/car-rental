@@ -40,6 +40,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { BookingComponent } from './components/booking/booking.component';
 import { CookieService } from 'ngx-cookie-service';
 import {MatMenuModule} from '@angular/material/menu';
+import { ReqQuoteComponent } from './components/req-quote/req-quote.component';
 
 
 
@@ -81,9 +82,10 @@ const appRoutes: Routes = [
     EditcarComponent,
     AddCouponComponent,
     AddLocComponent,
-    BookingComponent
+    BookingComponent,
+    ReqQuoteComponent
   ],
-  entryComponents: [EditcarComponent,AddCouponComponent,AddLocComponent],
+  entryComponents: [EditcarComponent,AddCouponComponent,AddLocComponent,ReqQuoteComponent],
   imports: [
     MatMenuModule,
     MatStepperModule,
