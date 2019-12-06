@@ -24,18 +24,38 @@ export class AdminComponent implements OnInit {
   }
   cars: any = [];
   locations: any = [];
+  quotes: any = [];
+  coupons: any = [];
+  zipcodes: any =[];
   displayedColumns: string[] = ['VIN', 'CarMake','CarModel','Edit', 'Delete'];
-  couponColumns: string[] = ['CouponCode', 'DiscountPercentage','DollarDiscount','Edit', 'Delete'];
-  locationColumns: string[] = ['Zipcode','LocationName','Edit', 'Delete']
+  couponColumns: string[] = ['CouponCode', 'DiscountPercentage','DollarDiscount', 'Delete'];
+  locationColumns: string[] = ['Zipcode','LocationName', 'Delete']
+  quoteColumns: string[] = ['QuoteId','PickUpLocation','DropOffLocation','ActualPrice','UserPrice','Approve','Decline']
   dataSource = new MatTableDataSource<any>();
   couponDS = new MatTableDataSource<any>();
   locationDS = new MatTableDataSource<any>();
+  quoteDS = new MatTableDataSource<any>();
 
   //@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
    @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
 
   ngOnInit() {
     this.loadAllCars();
+    this.loadAllZipcodes();
+  }
+
+  loadAllZipcodes() {
+      this.restService.getData('admin/allLocations').subscribe((resp: any) =>{
+          if(resp.status === 200){
+            resp.body.forEach(loc =>{
+              this.zipcodes.push(loc.zipcode);
+            });
+          }
+          },
+          (error) =>{
+          this.snackbar.openSnackBar(error.error.message,'Failure');
+          }
+      );
   }
 
 
@@ -44,13 +64,29 @@ export class AdminComponent implements OnInit {
       this.loadAllCoupons();
     }else if(tab.index === 4){
       this.loadAllLocations();
+    }else if(tab.index === 2){
+      this.loadAllQuotes();
     }
+  }
+
+  loadAllQuotes(){
+  this.restService.getData('admin/allQuotes').subscribe((resp: any) =>{
+      if(resp.status === 200){
+        this.quotes = resp.body;
+        this.quoteDS = new MatTableDataSource<Object>(resp.body);
+        this.quoteDS.paginator = this.paginator.toArray()[1];;
+      }
+      },
+      (error) =>{
+      this.snackbar.openSnackBar(error.error.message,'Failure');
+      }
+  );
   }
 
   loadAllCars() {
       this.restService.getData('admin/allCars').subscribe((resp: any) =>{
           if(resp.status === 200){
-           this.cars = resp.body;
+            this.cars = resp.body;
             this.dataSource = new MatTableDataSource<Object>(resp.body);
             this.dataSource.paginator = this.paginator.toArray()[0];;
           }
@@ -64,8 +100,9 @@ export class AdminComponent implements OnInit {
   loadAllCoupons() {
       this.restService.getData('admin/allCoupons').subscribe((resp: any) =>{
           if(resp.status === 200){
+            this.coupons = resp.body;
             this.couponDS = new MatTableDataSource<Object>(resp.body);
-            this.couponDS.paginator = this.paginator.toArray()[1];
+            this.couponDS.paginator = this.paginator.toArray()[2];
           }
           },
           (error) =>{
@@ -79,7 +116,7 @@ export class AdminComponent implements OnInit {
           if(resp.status === 200){
             this.locations = resp.body;
             this.locationDS = new MatTableDataSource<Object>(resp.body);
-            this.locationDS.paginator = this.paginator.toArray()[2];
+            this.locationDS.paginator = this.paginator.toArray()[3];
           }
           },
           (error) =>{
@@ -128,26 +165,42 @@ export class AdminComponent implements OnInit {
 
   deleteCar(car){
   this.restService.deleteData('admin/deleteCar/'+car.vin).subscribe((resp: any) =>{
+      if(resp.status === 200){
+        this.snackbar.openSnackBar(resp.body.message,'Success');
+        var filtered = this.cars.filter(function(value, index, arr){
+        return value.zipcode != car.zipcode;
+        });
+        this.cars = filtered;
+        this.dataSource = new MatTableDataSource<any>(filtered);
+      }
+      },
+      (error) =>{
+      this.snackbar.openSnackBar(error.error.message,'Failure');
+      }
+  );
+  }
 
+  deleteCoupon(coupon){
+
+  this.restService.deleteData('admin/deleteCoupon/'+coupon.couponCode).subscribe((resp: any) =>{
   if(resp.status === 200){
     this.snackbar.openSnackBar(resp.body.message,'Success');
 
-    var filtered = this.locations.filter(function(value, index, arr){
-    return value.zipcode != car.zipcode;
+    var filtered = this.coupons.filter(function(value, index, arr){
+    return value.couponCode != coupon.couponCode;
     });
-    this.locations = filtered;
-    this.locationDS = new MatTableDataSource<any>(filtered);
-
-
+    this.coupons = filtered;
+    this.couponDS = new MatTableDataSource<any>(filtered);
   }
-
   },
   (error) =>{
   this.snackbar.openSnackBar(error.error.message,'Failure');
-
   }
   );
+
   }
+
+
 
 
   openEditCar(editCarDetails){
@@ -169,7 +222,7 @@ export class AdminComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.loadAllCoupons();
     });
   }
 
@@ -179,12 +232,12 @@ export class AdminComponent implements OnInit {
       width: '500px',
       data: {
               'locations': this.locations,
-              'ds':this.locationDS
+              'ds':this.locationDS,
             }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.loadAllLocations();
     });
   }
 
@@ -207,6 +260,24 @@ export class AdminComponent implements OnInit {
 
   }
   );
+  }
+
+
+  updateQuote = (quote,status) => {
+      quote.quoteStatus = status;
+      this.restService.postData('admin/updateQuote',quote).subscribe((resp: any) =>{
+      if(resp.status === 200){
+        this.snackbar.openSnackBar(resp.body.message,'Success');
+      }
+
+      },
+      (error) =>{
+      this.snackbar.openSnackBar(error.error.message,'Failure');
+
+      }
+
+      );
+
   }
 
 }

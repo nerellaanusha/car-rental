@@ -41,13 +41,15 @@ import { BookingComponent } from './components/booking/booking.component';
 import { CookieService } from 'ngx-cookie-service';
 import {MatMenuModule} from '@angular/material/menu';
 import { ReqQuoteComponent } from './components/req-quote/req-quote.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 
 
 const appRoutes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path:'login',
@@ -55,11 +57,13 @@ const appRoutes: Routes = [
   },
   {
     path:'cars',
-    component:CarsComponent
+    component:CarsComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path:'admin',
-    component:AdminComponent
+    component:AdminComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: 'signup',
@@ -67,7 +71,8 @@ const appRoutes: Routes = [
   },
   {
     path:'booking',
-    component:BookingComponent
+    component:BookingComponent,
+    canActivate: [AuthGuardService],
   }
 ];
 

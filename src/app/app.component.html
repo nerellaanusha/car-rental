@@ -56,11 +56,12 @@
         <h1>CAR RENTAL</h1>
         <span class="menu-spacer"></span>
           <a mat-button routerLink="home"> HOME</a>
-          <a mat-button routerLink="login"> SIGN IN</a>
-          <a mat-button routerLink="signup"> REGISTER</a>
+          <a mat-button routerLink="login" *ngIf="canShowSignIn()"> SIGN IN</a>
+          <a mat-button routerLink="signup" *ngIf="canShowRegister()"> REGISTER</a>
+          <a mat-button routerLink="admin" *ngIf="canShowAdmin()"> ADMIN</a>
 
-
-        <button mat-button [matMenuTriggerFor]="menu" style="margin-left:70em">{{this.userInfo.firstName.toUpperCase()}}</button>
+<!-- {{this.userInfo.firstName.toUpperCase()}} -->
+        <button mat-button [matMenuTriggerFor]="menu" style="margin-left:75em">{{getUserName()}}</button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="signout()">Sign Out</button>
         </mat-menu>
@@ -87,3 +88,15 @@
 
 
 <router-outlet></router-outlet>
+
+
+
+<div id="loadingScreen" class="loadingContainer" *ngIf="loader.on">
+  <div class="loadingImage">
+    <div class="text-center" style="display:inline-flex">
+      <img class="loading-logo" src="../assets/images/loader2.gif"
+      style="height:100px;width:100px;margin-left:-7%">
+      <h1 style="margin:auto"> {{loader.msg}} </h1>
+    </div>
+  </div>
+</div>

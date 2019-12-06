@@ -15,9 +15,11 @@ export class AppComponent implements OnInit{
   title = 'rental';
 
   userInfo = {};
+  loader;
 
   constructor(private router: Router,private sharedService:SharedService,
     private cookieService: CookieService){
+    this.loader = this.sharedService.getLoader();
   }
 
   ngOnInit() {
@@ -50,6 +52,25 @@ export class AppComponent implements OnInit{
       this.cookieService.delete('firstName');
       this.router.navigateByUrl('/login');
   }
+
+  canShowAdmin () {
+    return this.cookieService.get('role') === 'ROLE_ADMIN'
+  }
+
+  canShowSignIn(){
+    return !this.cookieService.get('role')
+  }
+
+  canShowRegister(){
+    return !this.cookieService.get('role')
+  }
+
+  getUserName(){
+    if(this.cookieService.get('firstName')){
+      return this.cookieService.get('firstName')
+    }
+  }
+
   @Input() error: string | null;
 
   @Output() submitEM = new EventEmitter();

@@ -68,14 +68,10 @@
 
   </mat-tab>
 
-
-
-
-
   <mat-tab label="ADD CAR" (selectedTabChange)="tabChanged($event)">
 
 
-    <mat-card class="example-card" style="margin: auto;width: 25%;margin-top: 10%;">
+    <mat-card class="example-card" style="margin: auto;width: 25%;margin-top: 5%;">
       <mat-card-header class="login-header">
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title style="text-align:center">New Car</mat-card-title>
@@ -88,7 +84,9 @@
               <!-- <input type="text" matInput placeholder="Car Make" formControlName="carMake"> -->
 
               <mat-select placeholder="Select Make" formControlName="carMake">
-                  <mat-option *ngFor="let item of ['nissan','honda','hyundai','toyota','kia','chevrolet','ford','Range Rover']" [value]="item">
+                  <mat-option *ngFor="let item of ['nissan','honda','hyundai',
+                  'toyota','kia','chevrolet','ford','Range Rover','Tesla','Hummer',
+                  'Acura','Infiniti','Bmw']" [value]="item">
                       {{item}}
                   </mat-option>
               </mat-select>
@@ -125,7 +123,12 @@
             </mat-form-field>
 
             <mat-form-field>
-              <input type="text" matInput placeholder="zipcode" formControlName="zipcode">
+
+              <mat-select placeholder="Select Zipcode" formControlName="zipcode">
+                  <mat-option *ngFor="let zipcode of zipcodes" [value]="zipcode">
+                      {{zipcode}}
+                  </mat-option>
+              </mat-select>
             </mat-form-field>
 
             <mat-form-field>
@@ -145,7 +148,7 @@
             {{ error }}
           </p>
 
-          <div class="login-button">
+          <div class="login-button" style="margin-left:31%">
             <button type="submit" mat-button class="add-car-button">Add New Car</button>
           </div>
 
@@ -156,10 +159,65 @@
 
   </mat-tab>
 
+  <mat-tab label="VIEW / EDIT QUOTE" (selectedTabChange)="tabChanged($event)">
+    <div style="margin: auto;width: 75%;margin-top: 10%;">
+        <table mat-table [dataSource]="quoteDS">
+          <ng-container matColumnDef="QuoteId">
+            <th mat-header-cell *matHeaderCellDef> QuoteId </th>
+            <td mat-cell *matCellDef="let quote"> {{quote.quoteId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="PickUpLocation">
+            <th mat-header-cell *matHeaderCellDef> PickUpLocation </th>
+            <td mat-cell *matCellDef="let quote"> {{quote.pickUpLoc}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="DropOffLocation">
+            <th mat-header-cell *matHeaderCellDef> DropOffLocation </th>
+            <td mat-cell *matCellDef="let quote"> {{quote.dropOffloc}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ActualPrice">
+            <th mat-header-cell *matHeaderCellDef> ActualPrice </th>
+            <td mat-cell *matCellDef="let quote"> {{quote.totalPrice}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="UserPrice">
+            <th mat-header-cell *matHeaderCellDef> UserPrice </th>
+            <td mat-cell *matCellDef="let quote"> {{quote.userPrice}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="Approve">
+            <th mat-header-cell *matHeaderCellDef> Approve </th>
+            <td mat-cell *matCellDef="let quote">
+              <button mat-raised-button color="primary" (click)="updateQuote(quote,'CONFIRMED')">Approve Quote
+              <mat-icon>done</mat-icon></button>
+            </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="Decline">
+            <th mat-header-cell *matHeaderCellDef> Decline </th>
+            <td mat-cell *matCellDef="let quote">
+              <button mat-raised-button color="warn" (click)="updateQuote(quote,'DECLINED')">Decline Quote
+              <mat-icon>cancel</mat-icon>
+            </button>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="quoteColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: quoteColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+      </div>
 
 
 
-  <mat-tab label="VIEW / EDIT QUOTE" (selectedTabChange)="tabChanged($event)"> Content 3 </mat-tab>
+  </mat-tab>
 
 
 
@@ -202,13 +260,6 @@
 
 
       <!-- Weight Column -->
-      <ng-container matColumnDef="Edit">
-        <th mat-header-cell *matHeaderCellDef> Edit </th>
-        <td mat-cell *matCellDef="let coupon">
-          <button mat-raised-button color="primary" (click)="(coupon)">Edit Coupon
-          <mat-icon>edit</mat-icon></button>
-        </td>
-      </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="Delete">
@@ -267,13 +318,7 @@
 
 
          <!-- Weight Column -->
-         <ng-container matColumnDef="Edit">
-           <th mat-header-cell *matHeaderCellDef> Edit </th>
-           <td mat-cell *matCellDef="let location">
-             <button mat-raised-button color="primary" (click)="(coupon)">Edit Location
-             <mat-icon>edit</mat-icon></button>
-           </td>
-         </ng-container>
+
 
          <!-- Symbol Column -->
          <ng-container matColumnDef="Delete">

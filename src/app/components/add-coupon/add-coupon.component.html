@@ -12,11 +12,19 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input type="text" matInput placeholder="DiscountPercentage" formControlName="dicountPercentage">
+          <input type="text" matInput placeholder="DiscountPercentage"
+          formControlName="discountPercentage"
+           [disabled]="checkDiscountPercentage()">
+        </mat-form-field>
+
+        <mat-form-field [disabled]="checkDollarDiscount()">
+          <input type="text" matInput placeholder="DollarDiscount" formControlName="dollarDiscount">
         </mat-form-field>
 
         <mat-form-field>
-          <input type="text" matInput placeholder="DollarDiscount" formControlName="dollarDiscount">
+        <input matInput [matDatepicker]="picker1" placeholder="expiryDate" formControlName="expiryDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
 
 

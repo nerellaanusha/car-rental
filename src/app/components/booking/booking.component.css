@@ -2,3 +2,7 @@
 .tranform{
   text-transform: uppercase !important;
 }
+
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild,ViewChildren} from '@angular/core';
 import { FormGroup, FormControl ,Validators,FormBuilder} from '@angular/forms';
 import {ActivatedRoute,Router} from '@angular/router';
 import { SharedService} from '../../services/shared.service';
 import { RestService } from '../../services/rest.service';
 import { CookieService } from 'ngx-cookie-service';
 import {SnackbarService } from '../../services/snackbar.service';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-booking',
@@ -13,9 +14,13 @@ import {SnackbarService } from '../../services/snackbar.service';
 })
 export class BookingComponent implements OnInit {
 
+  @ViewChild('stepper') stepper:MatStepper;
   car;
   coupon ='';
   couponInfo;
+  coupons = [];
+  couponsDup = [];
+  bookingNum=null;
   constructor(private _formBuilder: FormBuilder,public activatedRoute: ActivatedRoute,
   private router: Router,private sharedService:SharedService,private restService: RestService,
   private cookieService: CookieService,private snackbar:SnackbarService,) {
@@ -31,6 +36,7 @@ export class BookingComponent implements OnInit {
      this.dropOffDate = dropDate.getMonth() + 1 + '/' + dropDate.getDate() + '/' + dropDate.getFullYear();
      this.noOfDays = new Date(this.req.dropOffDate).getDate() - new Date(this.req.pickUpDate).getDate();
 
+     this.loadAllCoupons();
   }
 
 
@@ -80,6 +86,8 @@ export class BookingComponent implements OnInit {
 
 
   reserveCar(){
+
+  this.sharedService.turnOnLoader({on:true,msg:'Booking the car, Please wait.....'})
   var req ={}
   req.dropOffLoc = this.dropLoc;
   req.pickUpLoc = this.pickLoc;
@@ -97,14 +105,51 @@ export class BookingComponent implements OnInit {
 
   this.restService.postData('user/reserveCar',req).subscribe((resp: any) =>{
       if(resp.status === 200){
-        this.snackbar.openSnackBar('Booking is successfull','Success');
+        this.bookingNum = resp.body;
+        this.snackbar.openSnackBar('Booking is Successfull','Success');
+        this.stepper.next();
       }
       },
       (error) =>{
       this.snackbar.openSnackBar(error.error.message,'Failure');
       }
   );
+  }
 
+
+  loadAllCoupons() {
+      this.restService.getData('admin/allCoupons').subscribe((resp: any) =>{
+          if(resp.status === 200){
+            let coupons = resp.body;
+            this.couponsDup = resp.body;
+            let arr = [];
+            coupons.forEach((coupon) => {
+              let obj = '';
+              obj += coupon.couponCode;
+              if(coupon.dicountPercentage){
+                obj+=","+coupon.dicountPercentage+"%";
+              }else if(coupon.dollarDiscount){
+                obj+=","+ "$" +coupon.dollarDiscount;
+              }
+
+              this.coupons.push(obj);
+
+            })
+          }
+          },
+          (error) =>{
+          this.snackbar.openSnackBar(error.error.message,'Failure');
+          }
+      );
+  }
+
+  canShowReserveCar = () => {
+    return !this.bookingNum ? true : false;
+  }
+
+
+  canShowConfirmation = () => {
+    return this.bookingNum ? true : false;
   }
 
 

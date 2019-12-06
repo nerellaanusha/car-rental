@@ -2,6 +2,7 @@ import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl ,Validators} from '@angular/forms';
 import { RestService } from '../../services/rest.service';
 import {SnackbarService } from '../../services/snackbar.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-coupon',
@@ -11,15 +12,17 @@ import {SnackbarService } from '../../services/snackbar.service';
 })
 export class AddCouponComponent implements OnInit {
 
-  constructor(private restService: RestService,private snackbar:SnackbarService) { }
+  constructor(public dialogRef: MatDialogRef<AddCouponComponent>,
+  private restService: RestService,private snackbar:SnackbarService) { }
 
   ngOnInit() {
   }
 
   couponForm: FormGroup = new FormGroup({
     couponCode: new FormControl('',[Validators.required]),
-    dicountPercentage: new FormControl(''),
-    dollarDiscount: new FormControl('')
+    discountPercentage: new FormControl(''),
+    dollarDiscount: new FormControl(''),
+    expiryDate: new FormControl('')
   });
 
   addCoupon () {
@@ -28,6 +31,7 @@ export class AddCouponComponent implements OnInit {
         if(resp.status === 200){
           this.snackbar.openSnackBar(resp.body.message,'Success');
           this.couponForm.reset();
+          this.dialogRef.close();
         }
         },
         (error) =>{
@@ -36,7 +40,14 @@ export class AddCouponComponent implements OnInit {
         }
         );
     }
+  }
 
+  checkDiscountPercentage(){
+    return this.couponForm.value.dollarDiscount ? true: false;
+  }
+
+  checkDollarDiscount(){
+    return this.couponForm.value.discountPercentage ? true: false;
   }
 
 }

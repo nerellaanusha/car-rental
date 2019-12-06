@@ -1,7 +1,7 @@
 <div style="display:flex">
 
 <div class="col1" style="width:15%">
-  <mat-card class="example-card">
+  <!-- <mat-card class="example-card">
   <mat-card-header style="border-bottom: 1px solid #5751ad">
     <mat-card-title>FILTERS</mat-card-title>
   </mat-card-header>
@@ -12,7 +12,7 @@
  <mat-list-item> <mat-checkbox>SEDANS</mat-checkbox> </mat-list-item>
 </mat-list>
   </mat-card-content>
-</mat-card>
+</mat-card> -->
 
 </div>
 
@@ -75,10 +75,8 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <mat-list style="display:grid;height:40px;overflow:auto">
-   <mat-list-item> NWA Airport - $60.50 </mat-list-item>
-   <mat-list-item> Rogers - 55.00 </mat-list-item>
-   <mat-list-item> Springdale - 50.00</mat-list-item>
+        <mat-list *ngFor="let nearBy of car.nearByCars" style="display:grid;height:40px;overflow:auto">
+   <mat-list-item> {{nearBy.zipcode}} - ${{nearBy.price}} </mat-list-item>
   </mat-list>
       </mat-expansion-panel>
       </mat-accordion>

@@ -32,9 +32,13 @@ export class LoginComponent implements OnInit {
   });
 
   submit() {
+
+  this.sharedService.turnOnLoader({on:true,msg:' Validating User ......'})
     if (this.form.valid) {
     this.restService.postData('api/signin',this.form.value).subscribe((resp) =>{
     if(resp.status === 200){
+    
+      this.sharedService.turnOffLoader();
       this.cookieService.set('token', resp.body.accessToken);
       this.cookieService.set('id',resp.body.id);
       this.cookieService.set('role', resp.body.authorities[0].authority);
@@ -47,6 +51,7 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/home');
 
       }
+      this.sharedService.turnOffLoader();
     });
     }
   }

@@ -13,7 +13,8 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class AddLocComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(public dialogRef: MatDialogRef<AddLocComponent>,
+  @Inject(MAT_DIALOG_DATA) public data: any,
   private restService: RestService,private snackbar:SnackbarService) { }
 
   locForm: FormGroup = new FormGroup({
@@ -32,6 +33,7 @@ export class AddLocComponent implements OnInit {
           this.data.ds =new MatTableDataSource<any>(this.data.locations);
           this.snackbar.openSnackBar(resp.body.message,'Success');
           this.locForm.reset();
+          this.dialogRef.close();
         }
         },
         (error) =>{

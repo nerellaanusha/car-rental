@@ -21,15 +21,23 @@ export class CarsComponent implements OnInit {
   constructor(private sharedService:SharedService,private restService:RestService,
   private router: Router,private snackbar:SnackbarService ,private dialog: MatDialog) {
 
+  this.sharedService.turnOnLoader({on:true,msg:'Loading Cars......'})
+
   var req = JSON.parse(JSON.stringify(this.sharedService.getRequest()));
   req.dropOffLoc = req.dropOffLoc.name.split(",")[1];
   req.pickUpLoc = req.pickUpLoc.name.split(",")[1];
+
+
     this.restService.postData('user/getCarsOnZipcode',req).subscribe((resp) =>{
         if(resp.status === 200){
-         this.cars = resp.body;
+        setTimeout(() => {
+          this.cars = resp.body;
+          this.sharedService.turnOffLoader();
+        },1000)
         }
         },
         (error) =>{
+        this.sharedService.turnOffLoader();
         this.snackbar.openSnackBar(error.error.message,'Failure');
         }
     );
