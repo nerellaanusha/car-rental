@@ -64,6 +64,7 @@
         <button mat-button [matMenuTriggerFor]="menu" style="margin-left:75em">{{getUserName()}}</button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="signout()">Sign Out</button>
+          <button mat-menu-item routerLink="booking">View Bookings</button>
         </mat-menu>
 
       </mat-toolbar-row>

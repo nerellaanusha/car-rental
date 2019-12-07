@@ -37,11 +37,13 @@ import { AddCouponComponent } from './components/add-coupon/add-coupon.component
 import { AddLocComponent } from './components/add-loc/add-loc.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatStepperModule} from '@angular/material/stepper';
+import { CheckingComponent } from './components/checkout/checkout.component';
 import { BookingComponent } from './components/booking/booking.component';
 import { CookieService } from 'ngx-cookie-service';
 import {MatMenuModule} from '@angular/material/menu';
 import { ReqQuoteComponent } from './components/req-quote/req-quote.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import {MatTreeModule} from '@angular/material/tree';
 
 
 
@@ -70,8 +72,13 @@ const appRoutes: Routes = [
     component: SignupComponent
   },
   {
-    path:'booking',
-    component:BookingComponent,
+    path: 'booking',
+    component: BookingComponent
+  },
+
+  {
+    path:'checkout',
+    component:CheckingComponent,
     canActivate: [AuthGuardService],
   }
 ];
@@ -88,10 +95,12 @@ const appRoutes: Routes = [
     AddCouponComponent,
     AddLocComponent,
     BookingComponent,
+    CheckingComponent,
     ReqQuoteComponent
   ],
   entryComponents: [EditcarComponent,AddCouponComponent,AddLocComponent,ReqQuoteComponent],
   imports: [
+    MatTreeModule,
     MatMenuModule,
     MatStepperModule,
     MatAutocompleteModule,

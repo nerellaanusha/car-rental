@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit {
   submit() {
     if (this.form.valid) {
 
-      this.restService.postData('api/signup',this.form.value).subscribe((resp) =>{
+      this.restService.postData('api/signup',this.form.value).subscribe((resp: any) =>{
       if(resp.status === 200){
           this.cookieService.set('token', resp.body.accessToken);
           this.cookieService.set('id',resp.body.id);

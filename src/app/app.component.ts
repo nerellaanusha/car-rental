@@ -14,7 +14,7 @@ import {Router} from '@angular/router';
 export class AppComponent implements OnInit{
   title = 'rental';
 
-  userInfo = {};
+  userInfo:any = {};
   loader;
 
   constructor(private router: Router,private sharedService:SharedService,

@@ -35,16 +35,16 @@ export class LoginComponent implements OnInit {
 
   this.sharedService.turnOnLoader({on:true,msg:' Validating User ......'})
     if (this.form.valid) {
-    this.restService.postData('api/signin',this.form.value).subscribe((resp) =>{
+    this.restService.postData('api/signin',this.form.value).subscribe((resp:any) =>{
     if(resp.status === 200){
-    
+
       this.sharedService.turnOffLoader();
       this.cookieService.set('token', resp.body.accessToken);
       this.cookieService.set('id',resp.body.id);
       this.cookieService.set('role', resp.body.authorities[0].authority);
       this.cookieService.set('firstName', resp.body.firstName);
       this.snackbar.openSnackBar('User successfully Logged-in','Sucess');
-      var obj = {};
+      var obj: any = {};
       obj.firstName = resp.body.firstName;
       obj.role = resp.body.authorities[0].authority
       this.sharedService.setUserInfo(obj);

@@ -1,0 +1,230 @@
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Verify Vehicle Details </ng-template>
+
+        <div style="display:flex">
+
+          <mat-card class="example-card" style="margin: 3% auto auto;width: 50%;background-color: #f3f3f3;margin-right:5%">
+        <div>
+            <h3> Rental Details</h3>
+            <mat-list>
+              <mat-divider></mat-divider>
+            </mat-list>
+        </div>
+
+
+
+          <div>
+            <h4> Dates & Times </h4>
+          <mat-list>
+            <mat-list-item class="tranform">Pick Up Date:  {{pickUpDate}}</mat-list-item>
+          </mat-list>
+          <div style="margin-top:1%">
+          <mat-list>
+            <mat-list-item class="tranform">Drop off Date:  {{dropOffDate}}</mat-list-item>
+            <mat-divider></mat-divider>
+          </mat-list>
+        </div>
+        </div>
+
+        <div>
+          <h4> Pick Up & Return Location</h4>
+        <mat-list>
+          <mat-list-item class="tranform">Pick Up Location:  {{pickLoc}}</mat-list-item>
+        </mat-list>
+
+        <div style="margin-top:1%">
+          <mat-list>
+            <mat-list-item class="tranform">Drop off Location: {{dropLoc}}</mat-list-item>
+          </mat-list>
+
+        </div>
+      </div>
+
+          <!-- </mat-card-actions> -->
+          </mat-card>
+
+
+        <mat-card class="example-card" style="margin: 3% auto auto;width: 50%;background-color: #f3f3f3">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{car.carMake}}</mat-card-title>
+            <mat-card-subtitle>{{car.carModel}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image style="height:250px;padding-left:10%;height:240px"
+          src={{car.image}} alt="Photo of a Shiba Inu">
+
+          <div>
+            <span style="font-weight:600"> Vehicle Details</span>
+            <mat-divider></mat-divider>
+        </div>
+
+        <div>
+        <mat-list>
+          <mat-list-item>No of Days ({{noOfDays}}) @ ${{car.price}}/day : ${{totalPrice}}</mat-list-item>
+        </mat-list>
+      </div>
+
+      <br>
+      <div>
+        <span style="font-weight:600"> Extras</span>
+        <mat-divider></mat-divider>
+    </div>
+
+    <div>
+    <mat-list>
+      <mat-list-item>Sales Tax {{car.tax}}%: ${{noOfDays * car.price * (car.tax/100) | number}}</mat-list-item>
+    </mat-list>
+  </div>
+
+
+
+      <div>
+        <h4> Estimated Total : ${{totalPriceWithTax}}</h4>
+
+      </div>
+
+        </mat-card>
+
+
+
+
+
+
+</div>
+        <!-- <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required> -->
+      <div>
+        <button mat-button matStepperNext style="background-color: #5751ad;color: white;">Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Fill out your information</ng-template>
+
+
+      <div style="display:flex">
+
+        <mat-card class="example-card" style="margin: 2% auto auto;width: 50%;background-color: #f3f3f3;margin-right:5%">
+
+          <form [formGroup]="form">
+
+
+
+              <mat-form-field>
+                <input type="text" matInput placeholder="First Name" formControlName="firstName">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input type="text" matInput placeholder="Last Name" formControlName="lastName">
+              </mat-form-field>
+
+
+              <mat-form-field>
+                <input type="text" matInput placeholder="Email" formControlName="email">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input type="text" matInput placeholder="Contact Number" formControlName="contact">
+              </mat-form-field>
+
+
+
+
+            <p *ngIf="error" class="error">
+              {{ error }}
+            </p>
+
+
+
+          </form>
+
+        </mat-card>
+
+
+      <mat-card class="example-card" style="margin: 2% auto auto;width: 50%;background-color: #f3f3f3">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{car.carMake}}</mat-card-title>
+          <mat-card-subtitle>{{car.carModel}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src={{car.image}} alt="Photo of a Shiba Inu">
+
+        <div>
+          <span style="font-weight:600"> Vehicle Details</span>
+          <mat-divider></mat-divider>
+      </div>
+
+      <div>
+      <mat-list>
+        <mat-list-item>No of Days ({{noOfDays}}) @ ${{car.price}}/day : ${{totalPrice}}</mat-list-item>
+      </mat-list>
+    </div>
+
+    <br>
+    <div>
+      <span style="font-weight:600"> Extras</span>
+      <mat-divider></mat-divider>
+  </div>
+
+  <div style="margin-bottom:2%">
+  <mat-list>
+    <mat-list-item>Sales Tax {{car.tax}}%: ${{noOfDays * car.price * (car.tax/100) | number}}</mat-list-item>
+  </mat-list>
+</div>
+
+<mat-form-field class="coupon">
+    <mat-select placeholder="Select Coupon" formControlName="coupon">
+        <mat-option *ngFor="let coupon of coupons" (onSelectionChange)="checkCoupon(coupon)" [value]="coupon">
+            {{coupon}}
+        </mat-option>
+    </mat-select>
+
+  <!-- <button mat-button (click)="checkCoupon()" style="background-color: #5751ad;color: white;">Apply</button> -->
+</mat-form-field>
+
+    <div>
+      <h4> Estimated Total : ${{totalPriceWithTax}}</h4>
+    </div>
+
+      </mat-card>
+
+</div>
+      <!-- <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required> -->
+
+
+
+
+
+      <!-- <mat-form-field>
+        <input matInput placeholder="Address" formControlName="secondCtrl" required>
+      </mat-form-field> -->
+      <div style="margin-top:2%">
+        <button mat-button matStepperPrevious style="background-color: #5751ad;color: white;">Back</button>
+        <button mat-button style="background-color: #5751ad;color: white;margin-left:40%" (click)="reserveCar()"
+        *ngIf="canShowReserveCar()" [disabled]="isReserveCarEnabled()">Reserve Your Car</button>
+      </div>
+    </form>
+  </mat-step>
+
+<!-- [editable]="canShowConfirmation()" -->
+  <mat-step [editable]="canShowConfirmation()">
+    <ng-template matStepLabel>Confirmation</ng-template>
+    <img style="height: 300px; margin-left: 45%;" src="../../assets/images/confirm.svg" alt="Confirmation Page">
+    <div style="margin-left:36%;font-size:larger">Your Booking is Confirmed. Booking Reference Number is {{bookingNum}}</div>
+    <div style="margin-left:43%;font-size:larger">An Email Confirmation has sent your email</div>
+
+  </mat-step>
+
+
+</mat-horizontal-stepper>
+
+
+<!-- Copyright 2019 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

@@ -54,7 +54,7 @@ export class CarsComponent implements OnInit {
                 "car": car
             }
         };
-  this.router.navigateByUrl('/booking',{state:{car}});
+  this.router.navigateByUrl('/checkout',{state:{car}});
   }
 
   reqQuote = (car) =>  {
